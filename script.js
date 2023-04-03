@@ -119,10 +119,8 @@ function checkGameOver() {
   }
 
   if (isGameOver) {
-    drawGameOver();
-  } else {
-    // Increase the snake's max body size
-    snake.maxBodySize += 1;
+    gameOver.style.display = "block";
+    finalScore.textContent = scoreValue;
   }
 }
 
@@ -153,6 +151,7 @@ function reset() {
 
 // Updated gameLoop function
 function gameLoop() {
+  drawScore();
   if (isGameOver) {
     return;
   }
@@ -167,7 +166,7 @@ function gameLoop() {
     // Check if the snake ate the food
     if (head.x === food.x && head.y === food.y) {
       scoreValue += 10;
-      drawScore();
+      
       snake.maxBodySize++;
       generateFood();
     } else {
