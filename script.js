@@ -55,6 +55,10 @@ function handleKeydown(event) {
   }
 }
 
+function updateScore() {
+  scoreElement.innerText = `Score: ${score}`;
+}
+
 function initGame() {
   window.addEventListener("keydown", handleKeydown);
   canvas.addEventListener("touchstart", handleTouchStart, false);
