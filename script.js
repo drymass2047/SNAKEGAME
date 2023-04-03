@@ -85,21 +85,25 @@ class Snake {
 
   checkCollision(food) {
     if (
-      this.positions[0].x === food.position.x &&
-      this.positions[0].y === food.position.y
-    ) {
-      this.grow();
-      return true;
-    }
+  this.positions[0].x === food.position.x &&
+  this.positions[0].y === food.position.y
+) {
+  this.grow();
+  score++;
+  food.randomize();
+}
 
-    if (
-      this.positions[0].x < 0 ||
-      this.positions[0].x >= canvas.width ||
-      this.positions[0].y < 0 ||
-      this.positions[0].y >= canvas.height
-    ) {
-      return false;
-    }
+
+   if (
+  this.positions[0].x < 0 ||
+  this.positions[0].x >= canvas.width ||
+  this.positions[0].y < 0 ||
+  this.positions[0].y >= canvas.height
+) {
+  gameOver = true;
+  return false;
+}
+
 
     for (let i = 1; i < this.positions.length; i++) {
 if (
