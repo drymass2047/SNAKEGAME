@@ -84,35 +84,28 @@ class Snake {
     this.positions.pop();
   }
 
-  checkCollision(food) {
-    if (
-      this.positions[0].x === food.position.x &&
-      this.positions[0].y === food.position.y
-    ) {
-      this.grow();
-      return true;
-    }
-
-    if (
-      this.positions[0].x < 0 ||
-      this.positions[0].x >= canvas.width ||
-      this.positions[0].y < 0 ||
-      this.positions[0].y >= canvas.height
-    ) {
-      return false;
-    }
-
-    for (let i = 1; i < this.positions.length; i++) {
-      if (
-        this.positions[0].x === this.positions[i].x &&
-        this.positions[0].y === this.positions[i].y
-      ) {
-        return false;
-      }
-    }
-
+checkCollision(food) {
+  // Check if the snake has collided with the food
+  if (this.positions[0].x === food.position.x && this.positions[0].y === food.position.y) {
+    this.grow();
     return true;
   }
+
+  // Check if the snake has collided with a wall
+  if (this.positions[0].x < 0 || this.positions[0].x >= canvas.width ||
+      this.positions[0].y < 0 || this.positions[0].y >= canvas.height) {
+    return false;
+  }
+
+  // Check if the snake has collided with itself
+  for (let i = 1; i < this.positions.length; i++) {
+    if (this.positions[0].x === this.positions[i].x && this.positions[0].y === this.positions[i].y) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
   grow() {
     this.positions.push({ ...this.positions[this.positions.length - 1] });
@@ -125,6 +118,7 @@ class Snake {
     });
   }
 }
+
 
 
 
