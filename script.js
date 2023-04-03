@@ -178,19 +178,25 @@ function gameLoop() {
   }, 100);
 }
 
-// Event listeners
-document.addEventListener("keydown", handleInput);
-
-startButton.addEventListener("click", () => {
-  startMenu.style.display = "none";
-  gameLoop();
+document.addEventListener("DOMContentLoaded", () => {
+  const startButton = document.getElementById("start-button");
+  startButton.addEventListener("click", () => {
+    startMenu.style.display = "none";
+    gameLoop();
+  });
 });
+
+// Other event listeners
+document.addEventListener("keydown", handleInput);
 
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
   reset();
   gameLoop();
 });
+
+
+
 
 // Initial setup
 generateFood();
