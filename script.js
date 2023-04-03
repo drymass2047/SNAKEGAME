@@ -91,37 +91,26 @@ class Snake {
   this.positions.pop();
 }
   
- checkCollision(food) {
-  if (
-    this.positions[0].x === food.position.x &&
-    this.positions[0].y === food.position.y
-  ) {
+checkCollision(food) {
+  if (this.positions[0].x === food.position.x && this.positions[0].y === food.position.y) {
     score++;
     this.grow();
     food.randomize();
   }
 
-  if (
-    this.positions[0].x < 0 ||
-    this.positions[0].x >= canvas.width ||
-    this.positions[0].y < 0 ||
-    this.positions[0].y >= canvas.height
-  ) {
-    gameOver = true;
-    return false;
-  }
-
   for (let i = 1; i < this.positions.length; i++) {
-    if (
-      this.positions[0].x === this.positions[i].x &&
-      this.positions[0].y === this.positions[i].y
-    ) {
+    if (this.positions[0].x === this.positions[i].x && this.positions[0].y === this.positions[i].y) {
       return false;
     }
   }
 
+  if (this.positions[0].x < 0 || this.positions[0].x >= canvas.width || this.positions[0].y < 0 || this.positions[0].y >= canvas.height) {
+    return false;
+  }
+
   return true;
 }
+
 
 
 grow() {
@@ -161,31 +150,32 @@ const snake = new Snake();
 const food = new Food();
 
 function gameLoop() {
-if (gameOver) {
-return;
+  if (gameOver) {
+    return;
+  }
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!snake.checkCollision(food)) {
+    gameOver = true;
+    return;
+  }
+
+  snake.move();
+
+  if (snake.positions[0].x === food.position.x && snake.positions[0].y === food.position.y) {
+    food.randomize();
+    score++;
+    snake.grow();
+  }
+
+  snake.draw();
+  food.draw();
+
+  updateScore();
+
+  setTimeout(gameLoop, 100);
 }
 
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-snake.move();
-
-if (!snake.checkCollision(food)) {
-gameOver = true;
-return;
-}
-
-if (snake.positions[0].x === food.position.x && snake.positions[0].y === food.position.y) {
-food.randomize();
-score++;
-snake.grow();
-}
-
-snake.draw();
-food.draw();
-
-updateScore();
-
-setTimeout(gameLoop, 100);
-}
 
 initGame();
