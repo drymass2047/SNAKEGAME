@@ -1,113 +1,197 @@
-// Define canvas and context
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const snakeSize = 20;
+const startMenu = document.getElementById("start-menu");
+const startButton = document.getElementById("start-button");
+const gameOver = document.getElementById("game-over");
+const finalScore = document.getElementById("final-score");
+const restartButton = document.getElementById("restart-button");
 
-// Set block size and number of blocks
-const blockSize = 20;
-const blockCount = 20;
+let isGameOver = false;
+let scoreValue = 0;
 
-// Set initial snake direction and position
-let snakeDirection = 'right';
-let snakePosition = [{ x: 3, y: 0 }, { x: 2, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 0 }];
+let snake = {
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  dirX: 1,
+  dirY: 0,
+  body: [],
+  maxBodySize: 1,
+};
 
-// Set initial food position
-let foodPosition = { x: 15, y: 15 };
+let food = {
+  x: 0,
+  y: 0,
+};
 
-// Draw a block
-function drawBlock(x, y, color) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-  ctx.strokeStyle = 'black';
-  ctx.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
+let bomb = {
+  x: 0,
+  y: 0,
+};
+
+function clearCanvas() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Draw the snake
 function drawSnake() {
-  snakePosition.forEach(function (block) {
-    drawBlock(block.x, block.y, 'green');
-  });
+  ctx.fillStyle = "green";
+  for (const segment of snake.body) {
+    ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
+  }
 }
 
-// Draw the food
 function drawFood() {
-  drawBlock(foodPosition.x, foodPosition.y, 'red');
+  ctx.fillStyle = "red";
+  ctx.fillRect(food.x, food.y, snakeSize, snakeSize);
 }
 
-// Move the snake
-function moveSnake() {
-  // Remove the last block of the snake
-  snakePosition.pop();
+function drawBomb() {
+  ctx.fillStyle = "black";
+  ctx.fillRect(bomb.x, bomb.y, snakeSize, snakeSize);
+}
 
-  // Get the head of the snake
-  const head = snakePosition[0];
+function drawScore() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText("Score: " + scoreValue, 8, 20);
+}
 
-  // Determine the direction to move
-  if (snakeDirection === 'right') {
-    snakePosition.unshift({ x: head.x + 1, y: head.y });
-  } else if (snakeDirection === 'left') {
-    snakePosition.unshift({ x: head.x - 1, y: head.y });
-  } else if (snakeDirection === 'up') {
-    snakePosition.unshift({ x: head.x, y: head.y - 1 });
-  } else if (snakeDirection === 'down') {
-    snakePosition.unshift({ x: head.x, y: head.y + 1 });
+function generateRandomPosition() {
+  return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
+}
+
+function generateFood() {
+  food.x = generateRandomPosition();
+  food.y = generateRandomPosition();
+}
+
+function generateBomb() {
+  bomb.x = generateRandomPosition();
+  bomb.y = generateRandomPosition();
+}
+
+function handleInput(event) {
+  switch (event.key) {
+    case "ArrowUp":
+      if (snake.dirY !== 1) {
+        snake.dirX = 0;
+        snake.dirY = -1;
+      }
+      break;
+    case "ArrowDown":
+      if (snake.dirY !== -1) {
+        snake.dirX = 0;
+        snake.dirY = 1;
+      }
+      break;
+    case "ArrowLeft":
+      if (snake.dirX !== 1) {
+        snake.dirX = -1;
+        snake.dirY = 0;
+      }
+      break;
+    case "ArrowRight":
+      if (snake.dirX !== -1) {
+        snake.dirX = 1;
+        snake.dirY = 0;
+      }
+      break;
   }
 }
 
-// Check for collisions with walls or the snake's body
-function checkCollisions() {
-  // Check for collision with walls
-  const head = snakePosition[0];
-  if (head.x < 0 || head.x >= blockCount || head.y < 0 || head.y >= blockCount) {
-    return true;
-  }
-
-  // Check for collision with the snake's body
-  for (let i = 1; i < snakePosition.length; i++) {
-    if (head.x === snakePosition[i].x && head.y === snakePosition[i].y) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-// Check if the snake has eaten the food
-// Check if the snake has eaten the food
-function checkFood() {
-  if (snakePosition[0].x === foodPosition.x && snakePosition[0].y === foodPosition.y) {
-    // Add a block to the snake
-    snakePosition.push(snakePosition[snakePosition.length - 1]);
-
-    // Generate new food position
-    foodPosition.x = Math.floor(Math.random() * blockCount);
-    foodPosition.y = Math.floor(Math.random() * blockCount);
+function checkGameOver() {
+  if (
+    snake.x < 0 ||
+    snake.y < 0 ||
+    snake.x >= canvas.width ||
+    snake.y >= canvas.height ||
+    snake.body.some((segment) => segment.x === snake.x && segment.y === snake.y)
+  ) {
+    isGameOver = true;
+    gameOver.style.display = "block";
+    finalScore.textContent = scoreValue;
   }
 }
-// Game loop
+
+function handleCollisionWithBomb() {
+  if (snake.x === bomb.x && snake.y === bomb.y) {
+    isGameOver = true;
+    gameOver.style.display = "block";
+    finalScore.textContent = scoreValue;
+  }
+}
+// Existing variables and functions
+
+function reset() {
+  isGameOver = false;
+  scoreValue = 0;
+  snake = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    dirX: 1,
+    dirY: 0,
+    body: [],
+    maxBodySize: 1,
+  };
+  generateFood();
+  generateBomb();
+}
+
+// Updated gameLoop function
 function gameLoop() {
-// Clear the canvas
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (isGameOver) {
+    return;
+  }
 
-// Move the snake
-moveSnake();
+  setTimeout(() => {
+    clearCanvas();
 
-// Check for collisions
-if (checkCollisions()) {
-alert('Game over!');
-return;
+    // Move the snake
+    const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
+    snake.body.unshift(head);
+
+    // Check if the snake ate the food
+    if (head.x === food.x && head.y === food.y) {
+      scoreValue += 10;
+      drawScore();
+      snake.maxBodySize++;
+      generateFood();
+    } else {
+      if (snake.body.length > snake.maxBodySize) {
+        snake.body.pop();
+      }
+    }
+
+    // Check if the snake collided with the bomb
+    handleCollisionWithBomb();
+
+    drawSnake();
+    drawFood();
+    drawBomb();
+    checkGameOver();
+
+    snake.x = head.x;
+    snake.y = head.y;
+
+    gameLoop();
+  }, 100);
 }
 
-// Check for food
-checkFood();
+// Event listeners
+document.addEventListener("keydown", handleInput);
 
-// Draw the snake and food
-drawSnake();
-drawFood();
+startButton.addEventListener("click", () => {
+  startMenu.style.display = "none";
+  gameLoop();
+});
 
-// Call the game loop again
-setTimeout(gameLoop, 100);
-}
+restartButton.addEventListener("click", () => {
+  gameOver.style.display = "none";
+  reset();
+  gameLoop();
+});
 
-// Start the game loop
-gameLoop();
-
+// Initial setup
+generateFood();
+generateBomb();
