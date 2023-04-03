@@ -1,103 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <style>
-        canvas {
-            display: block;
-            margin: 0 auto;
-            background-color: black;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #2C3E50;
+    }
+    canvas {
+      border: 1px solid #34495E;
+    }
+  </style>
 </head>
 <body>
-    <canvas id="canvas" width="600" height="480"></canvas>
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-        const config = {
-            sizeCell: 24,
-            step: 0,
-            stepMax: 7,
-        };
+const config = {
+  sizeCell: 24,
+  sizeFood: 24,
+  step: 0,
+  stepMax: 7,
+};
 
-        const snake = {
-            x: config.sizeCell,
-            y: config.sizeCell,
-            dirX: 0,
-            dirY: 0,
-            body: [],
-            maxBodySize: 1,
-        };
+const snake = {
+  x: config.sizeCell,
+  y: config.sizeCell,
+  dirX: 0, // direction X
+  dirY: 0, // direction Y
+  body: [],
+  maxBodySize: 1,
+};
 
-        const food = {
-            x: randomInt(0, canvas.width / config.sizeCell) * config.sizeCell,
-            y: randomInt(0, canvas.height / config.sizeCell) * config.sizeCell,
-        };
+const food = {
+  x: randomInt(0, canvas.width / config.sizeCell) * config.sizeCell,
+  y: randomInt(0, canvas.height / config.sizeCell) * config.sizeCell,
+};
 
-        function randomInt(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
+const bomb = {
+  x: -config.sizeCell,
+  y: -config.sizeCell,
+};
 
-        function gameLoop() {
-            requestAnimationFrame(gameLoop);
+// Rest of the code remains the same...
 
-            if (++config.step < config.stepMax) return;
-            config.step = 0;
+// snake styles
+function snakeStyles(e, index) {
+  if (index === 0) {
+    ctx.fillStyle = "#2ECC71"; // Head color
+  } else {
+    ctx.fillStyle = "#093D14"; // Body color
+  }
+  ctx.strokeStyle = "#071510";
+  ctx.lineWidth = 1;
+  ctx.fillRect(e.x, e.y, config.sizeCell, config.sizeCell);
+  ctx.strokeRect(e.x, e.y, config.sizeCell - 1, config.sizeCell - 1);
+}
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawFood();
-            drawSnake();
-        }
+// draw food
+function drawFood() {
+  ctx.fillStyle = "#E74C3C"; // Food color
+  ctx.fillRect(food.x, food.y, config.sizeFood, config.sizeFood);
+}
 
-        gameLoop();
+// draw bomb
+function drawBomb() {
+  ctx.fillStyle = "#8E44AD"; // Bomb color
+  ctx.fillRect(bomb.x, bomb.y, config.sizeFood, config.sizeFood);
+}
 
-        function drawSnake() {
-            snake.x += snake.dirX;
-            snake.y += snake.dirY;
-
-            snake.body.unshift({x: snake.x, y: snake.y});
-            if (snake.body.length > snake.maxBodySize) {
-                snake.body.pop();
-            }
-
-            snake.body.forEach((e, index) => {
-                ctx.fillStyle = index === 0 ? '#FF0000' : '#00FF00';
-                ctx.fillRect(e.x, e.y, config.sizeCell, config.sizeCell);
-
-                if (e.x === food.x && e.y === food.y) {
-                    snake.maxBodySize++;
-                    food.x = randomInt(0, canvas.width / config.sizeCell) * config.sizeCell;
-                    food.y = randomInt(0, canvas.height / config.sizeCell) * config.sizeCell;
-                }
-
-                for (let i = index + 1; i < snake.body.length; i++) {
-                    if (e.x === snake.body[i].x && e.y === snake.body[i].y) {
-                        console.log("Game Over!");
-                    }
-                }
-            });
-        }
-
-        function drawFood() {
-            ctx.fillStyle = '#0000FF';
-            ctx.fillRect(food.x, food.y, config.sizeCell, config.sizeCell);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.keyCode === 87 || e.keyCode === 38) { // W (up) or arrow up
-                snake.dirY = -config.sizeCell;
-                snake.dirX = 0;
-            }
-            else if (e.keyCode === 65 || e.keyCode === 37) { // A (left) or arrow left
-                snake.dirX = -config.sizeCell;
-                snake.dirY = 0;
-            }
-            else if (e.keyCode === 83 || e.keyCode === 40) { // S (down) or arrow down
-                snake.dirY = config.sizeCell;
-                snake.dirX = 0;
-            }
-           
+  </script>
+</body>
+</html>
