@@ -1,4 +1,4 @@
- const canvas = document.getElementById("gameCanvas");
+const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const scoreElement = document.getElementById("score");
 
@@ -94,19 +94,20 @@ class Snake {
 
     if (
       this.positions[0].x < 0 ||
-      this.positions[0].x >=canvas.width ||
-this.positions[0].y < 0 ||
-this.positions[0].y >= canvas.height
+      this.positions[0].x >= canvas.width ||
+      this.positions[0].y < 0 ||
+      this.positions[0].y >= canvas.height
+    ) {
+      return false;
+    }
+
+    for (let i = 1; i < this.positions.length; i++) {
+if (
+this.positions[0].x === this.positions[i].x &&
+this.positions[0].y === this.positions[i].y
 ) {
 return false;
 }
-    for (let i = 1; i < this.positions.length; i++) {
-  if (
-    this.positions[0].x === this.positions[i].x &&
-    this.positions[0].y === this.positions[i].y
-  ) {
-    return false;
-  }
 }
 
 return true;
@@ -165,6 +166,7 @@ return;
 if (snake.positions[0].x === food.position.x && snake.positions[0].y === food.position.y) {
 food.randomize();
 score++;
+snake.grow();
 }
 
 snake.draw();
