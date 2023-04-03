@@ -1,5 +1,6 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+const scoreElement = document.getElementById("score");
 
 const grid = 20;
 const snakeColor = "#00FF00";
@@ -90,31 +91,37 @@ function gameLoop() {
   snake.move();
 
   if (!snake.checkCollision(food)) {
-    alert("Game Over!");
-    window.location.reload();
-    return;
-  }
-
-  if (
+    alert("Game Over");
+    snake.positions = [{ x: canvas.width / 2, y: canvas.height / 2 }];
+    snake.direction = { x: 0, y: -grid };
+    score = 0;
+  } else if (
     snake.positions[0].x === food.position.x &&
     snake.positions[0].y === food.position.y
   ) {
     food.randomize();
     score++;
+    scoreElement.innerText = `Score: ${score}`;
   }
 
-  snake.draw();
   food.draw();
-
-  updateScore();
+  snake.draw();
 
   setTimeout(gameLoop, 100);
 }
 
-function updateScore() {
-  document.getElementById("score").innerText = `Score: ${score}`;
-}
-
 gameLoop();
 
+window.addEventListener("keydown", (event) => {
+  const key = event.key;
 
+  if (key === "ArrowUp" && snake.direction.y !== grid) {
+    snake.direction = { x: 0, y: -grid };
+   } else if (key === "ArrowDown" && snake.direction.y !== -grid) {
+    snake.direction = { x: 0, y: grid };
+  } else if (key === "ArrowLeft" && snake.direction.x !== grid) {
+    snake.direction = { x: -grid, y: 0 };
+  } else if (key === "ArrowRight" && snake.direction.x !== -grid) {
+    snake.direction = { x: grid, y: 0 };
+  }
+});
