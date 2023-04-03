@@ -1,15 +1,22 @@
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Game</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background-color: black;
+    }
+  </style>
 </head>
 <body>
-    <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <script src="script.js"></script>
-    <p id="score">Score: 0</p>
+  <h1 style="text-align: center;">Snake Game</h1>
+  <p id="score" style="text-align: center;">Score: 0</p>
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <script src="script.js"></script>
 </body>
 </html>
