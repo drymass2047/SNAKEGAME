@@ -91,6 +91,15 @@
     </style>
   </head>
   <body>
+    <!-- Add an id attribute to the score element -->
+<h2 id="score"></h2>
+
+<!-- Update the updateScore function -->
+function updateScore() {
+  const scoreElem = document.getElementById("score");
+  scoreElem.innerText = `Score: ${score}`;
+}
+
     <canvas id="canvas" width="600" height="600"></canvas>
 
     <div id="start-menu">
@@ -250,6 +259,21 @@ function gameLoop() {
     isGameOver = true;
   }
 
+ // Check for collision with the walls
+if (
+  snake.x < 0 ||
+  snake.y < 0 ||
+  snake.x >= canvas.width ||
+  snake.y >= canvas.height
+) {
+  isGameOver = true;
+}
+ 
+// Check for collision with the snake's body
+if (snake.body.slice(1).some((cell) => checkCollision(snake.x, snake.y, cell))) {
+  isGameOver = true;
+}
+  
   // Update the snake body
   snake.body.unshift({ x: snake.x, y: snake.y });
   if (snake.body.length > snake.maxBodySize) {
