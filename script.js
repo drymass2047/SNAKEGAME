@@ -39,6 +39,14 @@ function handleTouchEnd(event) {
 canvas.addEventListener("touchstart", handleTouchStart, false);
 canvas.addEventListener("touchend", handleTouchEnd, false);
 
+function initGame() {
+  window.addEventListener("keydown", handleKeydown);
+  canvas.addEventListener("touchstart", handleTouchStart, false);
+  canvas.addEventListener("touchmove", handleTouchMove, false);
+  gameLoop();
+}
+
+
 // The rest of the code remains the same
 
 class Snake {
@@ -123,20 +131,23 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   snake.move();
-
   if (!snake.checkCollision(food)) {
-    alert("Game Over");
-    snake.positions = [{ x: canvas.width / 2, y: canvas.height / 2 }];
-    snake.direction = { x: 0, y: -grid };
-    score = 0;
-  } else if (
-    snake.positions[0].x === food.position.x &&
-    snake.positions[0].y === food.position.y
-  ) {
+    gameIsRunning = false;
+    return;
+  }
+
+  if (snake.positions[0].x === food.position.x && snake.positions[0].y === food.position.y) {
     food.randomize();
     score++;
-    scoreElement.innerText = `Score: ${score}`;
   }
+
+  snake.draw();
+  food.draw();
+
+  updateScore();
+
+  setTimeout(gameLoop, 100);
+}
 
   food.draw();
   snake.draw();
