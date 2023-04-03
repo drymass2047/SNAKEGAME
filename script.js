@@ -74,48 +74,55 @@ class Snake {
   }
 
   move() {
-    const newHead = {
-      x: this.positions[0].x + this.direction.x,
-      y: this.positions[0].y + this.direction.y,
-    };
+  const newHead = {
+    x: this.positions[0].x + this.direction.x,
+    y: this.positions[0].y + this.direction.y,
+  };
 
-    this.positions.unshift(newHead);
-    this.positions.pop();
+  if (
+    newHead.x < 0 || newHead.x >= canvas.width ||
+    newHead.y < 0 || newHead.y >= canvas.height
+  ) {
+    gameOver = true;
+    return;
   }
 
-  checkCollision(food) {
+  this.positions.unshift(newHead);
+  this.positions.pop();
+}
+  
+ checkCollision(food) {
+  if (
+    this.positions[0].x === food.position.x &&
+    this.positions[0].y === food.position.y
+  ) {
+    score++;
+    this.grow();
+    food.randomize();
+  }
+
+  if (
+    this.positions[0].x < 0 ||
+    this.positions[0].x >= canvas.width ||
+    this.positions[0].y < 0 ||
+    this.positions[0].y >= canvas.height
+  ) {
+    gameOver = true;
+    return false;
+  }
+
+  for (let i = 1; i < this.positions.length; i++) {
     if (
-  this.positions[0].x === food.position.x &&
-  this.positions[0].y === food.position.y
-) {
-  this.grow();
-  score++;
-  food.randomize();
+      this.positions[0].x === this.positions[i].x &&
+      this.positions[0].y === this.positions[i].y
+    ) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
-
-   if (
-  this.positions[0].x < 0 ||
-  this.positions[0].x >= canvas.width ||
-  this.positions[0].y < 0 ||
-  this.positions[0].y >= canvas.height
-) {
-  gameOver = true;
-  return false;
-}
-
-
-    for (let i = 1; i < this.positions.length; i++) {
-if (
-this.positions[0].x === this.positions[i].x &&
-this.positions[0].y === this.positions[i].y
-) {
-return false;
-}
-}
-
-return true;
-}
 
 grow() {
 this.positions.push({ ...this.positions[this.positions.length - 1] });
