@@ -91,14 +91,7 @@
     </style>
   </head>
   <body>
-    <!-- Add an id attribute to the score element -->
-<h2 id="score"></h2>
-
-<!-- Update the updateScore function -->
-function updateScore() {
-  const scoreElem = document.getElementById("score");
-  scoreElem.innerText = `Score: ${score}`;
-}
+    <h2 id="score"></h2>
 
     <canvas id="canvas" width="600" height="600"></canvas>
 
@@ -109,118 +102,116 @@ function updateScore() {
       <button id="start-button">Press "S" to Start</button>
     </div>
 
-    <div id="game-over" style="display: none;">
+   <div id="game-over" style="display: none;">
       <h1>Game Over</h1>
       <h2>Score: <span id="final-score"></span></h2>
-<p>Press "R" to restart or "Q" to quit.</p>
-<button id="restart-button">Restart</button>
-<button id="quit-button">Quit</button>
-</div>
-<script>
-  const startMenu = document.getElementById("start-menu");
-const gameOver = document.getElementById("game-over");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+      <p>Press "R" to restart or "Q" to quit.</p>
+      <button id="restart-button">Restart</button>
+      <button id="quit-button">Quit</button>
+    </div>
+    <script>
+      const startMenu = document.getElementById("start-menu");
+      const gameOver = document.getElementById("game-over");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+        const config = {
+    sizeCell: 24,
+    sizeFood: 24,
+    step: 0,
+    stepMax: 7,
+  };
 
-const config = {
-  sizeCell: 24,
-  sizeFood: 24,
-  step: 0,
-  stepMax: 7,
-};
+  const snake = {
+    x: config.sizeCell,
+    y: config.sizeCell,
+    dirX: 0, // direction X
+    dirY: 0, // direction Y
+    body: [],
+    maxBodySize: 1,
+  };
 
-const snake = {
-  x: config.sizeCell,
-  y: config.sizeCell,
-  dirX: 0, // direction X
-  dirY: 0, // direction Y
-  body: [],
-  maxBodySize: 1,
-};
+  const food = {
+    x: randomInt(0, canvas.width / config.sizeCell) * config.sizeCell,
+    y: randomInt(0, canvas.height / config.sizeCell) * config.sizeCell,
+  };
 
-const food = {
-  x: randomInt(0, canvas.width / config.sizeCell) * config.sizeCell,
-  y: randomInt(0, canvas.height / config.sizeCell) * config.sizeCell,
-};
+  const bomb = {
+    x: -config.sizeCell,
+    y: -config.sizeCell,
+  };
 
-const bomb = {
-  x: -config.sizeCell,
-  y: -config.sizeCell,
-};
+  let score = 0;
+  let finalScore = 0;
+  let isGameOver = false;
 
-let score = 0;
-let finalScore = 0;
-let isGameOver = false;
-
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function reset() {
-  snake.x = config.sizeCell;
-  snake.y = config.sizeCell;
-  snake.dirX = 0;
-  snake.dirY = 0;
-  snake.body = [];
-  snake.maxBodySize = 1;
-  config.stepMax = 7;
-  spawnFood();
-  score = 0;
-  isGameOver = false;
-}
-
-function checkCollision(x, y, obj) {
-  return x === obj.x && y === obj.y;
-}
-
-function spawnFood() {
-  let newX, newY;
-  do {
-    newX = randomInt(0, canvas.width / config.sizeCell) * config.sizeCell;
-    newY = randomInt(0, canvas.height / config.sizeCell) * config.sizeCell;
-  } while (snake.body.some((cell) => checkCollision(newX, newY, cell)));
-  food.x = newX;
-  food.y = newY;
-}
-
-function spawnBomb() {
-  let newX, newY;
-  do {
-    newX = randomInt(0, canvas.width / config.sizeCell) * config.sizeCell;
-    newY = randomInt(0, canvas.height / config.sizeCell) * config.sizeCell;
-  } while (snake.body.some((cell) => checkCollision(newX, newY, cell)));
-  bomb.x = newX;
-  bomb.y = newY;
-}
-
-function snakeStyles(e, index) {
-  if (index === 0) {
-    ctx.fillStyle = "#2ECC71"; // Head color
-  } else {
-    ctx.fillStyle = "#093D14"; // Body color
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
-  ctx.strokeStyle = "#071510";
-  ctx.lineWidth = 1;
-  ctx.fillRect(e.x, e.y, config.sizeCell, config.sizeCell);
-  ctx.strokeRect(e.x, e.y, config.sizeCell - 1, config.sizeCell - 1);
-}
 
-function drawFood() {
-  ctx.fillStyle = "#E74C3C"; // Food color
-  ctx.fillRect(food.x, food.y, config.sizeFood, config.sizeFood);
-}
+  function reset() {
+    snake.x = config.sizeCell;
+    snake.y = config.sizeCell;
+    snake.dirX = 0;
+    snake.dirY = 0;
+    snake.body = [];
+    snake.maxBodySize = 1;
+    config.stepMax = 7;
+    spawnFood();
+    score = 0;
+    isGameOver = false;
+  }
 
+  function checkCollision(x, y, obj) {
+    return x === obj.x && y === obj.y;
+  }
+
+  function spawnFood() {
+    let newX, newY;
+    do {
+      newX = randomInt(0, canvas.width / config.sizeCell) * config.sizeCell;
+      newY = randomInt(0, canvas.height / config.sizeCell) * config.sizeCell;
+    } while (snake.body.some((cell) => checkCollision(newX, newY, cell)));
+    food.x = newX;
+    food.y = newY;
+  }
+
+  function spawnBomb() {
+    let newX, newY;
+    do {
+      newX = randomInt(0, canvas.width / config.sizeCell) * config.sizeCell;
+      newY = randomInt(0, canvas.height / config.sizeCell) * config.sizeCell;
+    } while (snake.body.some((cell) => checkCollision(newX, newY, cell)));
+    bomb.x = newX;
+    bomb.y = newY;
+  }
+
+  function snakeStyles(e, index) {
+    if (index === 0) {
+      ctx.fillStyle = "#2ECC71"; // Head color
+    } else {
+      ctx.fillStyle = "#093D14"; // Body color
+    }
+    ctx.strokeStyle = "#071510";
+    ctx.lineWidth = 1;
+    ctx.fillRect(e.x, e.y, config.sizeCell, config.sizeCell);
+    ctx.strokeRect(e.x, e.y, config.sizeCell - 1, config.sizeCell - 1);
+  }
+
+ function drawFood() {
+  ctx.fillStyle = "#E74C3C"; // Set the fill style to red
+  ctx.fillRect(food.x, food.y, config.sizeFood, config.sizeFood); // Draw a rectangle at the position of the food
+}
 function drawBomb() {
-  ctx.fillStyle = "#8E44AD"; // Bomb color
-  ctx.fillRect(bomb.x, bomb.y, config.sizeFood, config.sizeFood);
+ctx.fillStyle = "#8E44AD"; // Bomb color
+ctx.fillRect(bomb.x, bomb.y, config.sizeFood, config.sizeFood);
 }
 
 function showStartMenu() {
-  startMenu.style.display = "flex";
+startMenu.style.display = "flex";
 }
 
 function hideStartMenu() {
-  startMenu.style.display = "none";
+startMenu.style.display = "none";
 }
 
 function showGameOver() {
@@ -283,7 +274,11 @@ isGameOver = true;
 }
 
 // Check for collision with the snake's body
-if (snake.body.slice(1).some((cell) => checkCollision(snake.x, snake.y, cell))) {
+if (
+snake.body.slice(1).some((cell) =>
+checkCollision(snake.x, snake.y, cell)
+)
+) {
 isGameOver = true;
 }
 
@@ -315,8 +310,148 @@ setTimeout(() => {
 requestAnimationFrame(gameLoop);
 }, 1000 / 15);
 }
-  
+
+// Event listeners
+document.addEventListener("keydown", (event) => {
+switch (event.code) {
+case "KeyW":
+case "ArrowUp":
+if (snake.dirY !== 1) {
+snake.dirX = 0;
+snake.dirY = -1;
+}
+break;
+case "KeyS":
+case "ArrowDown":
+if (snake.dirY !== -1) {
+snake.dirX = 0;
+snake.dirY = 1;
+}
+break;
+case "KeyA":
+case "ArrowLeft":
+if (snake.dirX !== 1) {
+snake.dirX = -1;
+snake.dirY = 0;
+}
+break;
+case "KeyD":
+case "ArrowRight":
+if (snake.dirX !== -1) {
+snake.dirX = 1;
+snake.dirY = 0;
+}
+break;
+case "KeyW":
+case "ArrowUp":
+if (snake.dirY !== 1) {
+snake.dirX = 0;
+snake.dirY = -1;
+}
+break;
+case "KeyS":
+case "ArrowDown":
+if (snake.dirY !== -1) {
+snake.dirX = 0;
+snake.dirY = 1;
+}
+break;
+}
+});
+// Handle the start button click event
+startButton.addEventListener("click", () => {
+  hideStartMenu();
+  showScore();
+  gameLoop();
+});
+
+// Handle the restart button click event
+restartButton.addEventListener("click", () => {
+  hideGameOver();
+  reset();
+  showScore();
+  gameLoop();
+});
+
+// Handle the quit button click event
+quitButton.addEventListener("click", () => {
+  hideGameOver();
+  showStartMenu();
+  reset();
+});
+
+// Set the game loop
+function gameLoop() {
+  if (isGameOver) {
+    showGameOver();
+    return;
+  }
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Move the snake
+  snake.x += snake.dirX * config.sizeCell;
+  snake.y += snake.dirY * config.sizeCell;
+
+  // Check for collision with food
+  if (checkCollision(snake.x, snake.y, food)) {
+    snake.maxBodySize++;
+    spawnFood();
+    score++;
+    updateScore();
+  }
+
+  // Check for collision with bomb
+  if (checkCollision(snake.x, snake.y, bomb)) {
+    isGameOver = true;
+  }
+
+  // Check for collision with the walls
+  if (
+    snake.x < 0 ||
+    snake.y < 0 ||
+    snake.x >= canvas.width ||
+    snake.y >= canvas.height
+  ) {
+    isGameOver = true;
+  }
+
+  // Check for collision with the snake's body
+  if (
+    snake.body.slice(1).some((cell) => checkCollision(snake.x, snake.y, cell))
+  ) {
+    isGameOver = true;
+  }
+
+  // Update the snake body
+  snake.body.unshift({ x: snake.x, y: snake.y });
+  if (snake.body.length > snake.maxBodySize) {
+    snake.body.pop();
+  }
+
+  // Draw the snake
+  snake.body.forEach(snakeStyles);
+
+  // Draw the food
+  drawFood();
+
+  // Draw the bomb
+  drawBomb();
+
+  // Increase the game speed
+  if (config.step === config.stepMax) {
+    config.step = 0;
+  } else {
+    config.step++;
+  }
+  config.stepMax = 7 - Math.floor(snake.maxBodySize / 5);
+
+  // Set the game loop
+  setTimeout(() => {
+    requestAnimationFrame(gameLoop);
+  }, 1000 / 15);
+}
  </script>
 </body>
-</html>  
-  
+</html>
