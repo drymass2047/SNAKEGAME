@@ -232,6 +232,61 @@ startButton.addEventListener("click", () => {
   gameLoop();
 });
 
+function gameLoop() {
+  if (isGameOver) {
+    showGameOver();
+    return;
+  }
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Move the snake
+  snake.x += snake.dirX * config.sizeCell;
+  snake.y += snake.dirY * config.sizeCell;
+
+  // Check for collision with food
+  if (checkCollision(snake.x, snake.y, food)) {
+    snake.maxBodySize++;
+    spawnFood();
+    score++;
+  }
+
+  // Check for collision with bomb
+  if (checkCollision(snake.x, snake.y, bomb)) {
+    isGameOver = true;
+  }
+
+  // Update the snake body
+  snake.body.unshift({ x: snake.x, y: snake.y });
+  if (snake.body.length > snake.maxBodySize) {
+    snake.body.pop();
+  }
+
+  // Draw the snake
+  snake.body.forEach(snakeStyles);
+
+  // Draw the food
+  drawFood();
+
+  // Draw the bomb
+  drawBomb();
+
+  // Increase the game speed
+  if (config.step === config.stepMax) {
+    config.step = 0;
+  } else {
+    config.step++;
+  }
+  config.stepMax = 7 - Math.floor(snake.maxBodySize / 5);
+
+  // Set the game loop
+  setTimeout(() => {
+    requestAnimationFrame(gameLoop);
+  }, 1000 / 15);
+}
+
+  
 const quitButton = document.getElementById("quit-button");
 quitButton.addEventListener("click", () => {
   reset();
