@@ -225,13 +225,6 @@ function updateScore() {
   score.innerText = `Score: ${snake.maxBodySize - 1}`;
 }
 
-const startButton = document.getElementById("start-button");
-startButton.addEventListener("click", () => {
-  hideStartMenu();
-  spawnFood();
-  gameLoop();
-});
-
 function gameLoop() {
   if (isGameOver) {
     showGameOver();
@@ -284,7 +277,15 @@ function gameLoop() {
   setTimeout(() => {
     requestAnimationFrame(gameLoop);
   }, 1000 / 15);
-}
+}  
+  
+  
+const startButton = document.getElementById("start-button");
+startButton.addEventListener("click", () => {
+  hideStartMenu();
+  spawnFood();
+  gameLoop();
+});
 
   
 const quitButton = document.getElementById("quit-button");
