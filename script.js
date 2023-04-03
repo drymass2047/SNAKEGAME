@@ -87,3 +87,34 @@ const food = new Food();
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  snake.move();
+
+  if (!snake.checkCollision(food)) {
+    alert("Game Over!");
+    window.location.reload();
+    return;
+  }
+
+  if (
+    snake.positions[0].x === food.position.x &&
+    snake.positions[0].y === food.position.y
+  ) {
+    food.randomize();
+    score++;
+  }
+
+  snake.draw();
+  food.draw();
+
+  updateScore();
+
+  setTimeout(gameLoop, 100);
+}
+
+function updateScore() {
+  document.getElementById("score").innerText = `Score: ${score}`;
+}
+
+gameLoop();
+
+
