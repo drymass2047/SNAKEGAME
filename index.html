@@ -223,7 +223,7 @@ function hideStartMenu() {
 
 function showGameOver() {
   gameOver.style.display = "flex";
-  gameOverScore.innerText = `Your final score: ${snake.maxBodySize - 1}`;
+  finalScore.innerText = `Your final score: ${snake.maxBodySize - 1}`;
 }
 
 function hideGameOver() {
@@ -231,7 +231,7 @@ function hideGameOver() {
 }
 
 function updateScore() {
-  score.innerText = `Score: ${snake.maxBodySize - 1}`;
+  scoreElem.innerText = `Score: ${snake.maxBodySize - 1}`;
 }
 
 function gameLoop() {
