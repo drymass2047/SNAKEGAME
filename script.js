@@ -113,8 +113,6 @@ class Snake {
 
     return true;
   }
-}
-
 
   grow() {
     this.positions.push({ ...this.positions[this.positions.length - 1] });
@@ -127,6 +125,7 @@ class Snake {
     });
   }
 }
+
 
 
 class Food {
