@@ -101,18 +101,31 @@ function handleInput(event) {
 }
 
 function checkGameOver() {
-  if (
-    snake.x < 0 ||
-    snake.y < 0 ||
-    snake.x >= canvas.width ||
-    snake.y >= canvas.height ||
-    snake.body.some((segment) => segment.x === snake.x && segment.y === snake.y)
-  ) {
+  const head = snake.body[0];
+  const hitLeftWall = head.x < 0;
+  const hitRightWall = head.x > canvas.width - snakeSize;
+  const hitTopWall = head.y < 0;
+  const hitBottomWall = head.y > canvas.height - snakeSize;
+
+  if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
     isGameOver = true;
-    gameOver.style.display = "block";
-    finalScore.textContent = scoreValue;
+  }
+
+  for (let i = 1; i < snake.body.length; i++) {
+    if (head.x === snake.body[i].x && head.y === snake.body[i].y) {
+      isGameOver = true;
+      break;
+    }
+  }
+
+  if (isGameOver) {
+    drawGameOver();
+  } else {
+    // Increase the snake's max body size
+    snake.maxBodySize += 1;
   }
 }
+
 
 function handleCollisionWithBomb() {
   if (snake.x === bomb.x && snake.y === bomb.y) {
