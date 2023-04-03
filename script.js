@@ -148,6 +148,22 @@ function reset() {
   generateFood();
   generateBomb();
 }
+function createGameLoop() {
+  return () => {
+    drawScore();
+    if (isGameOver) {
+      return;
+    }
+
+    setTimeout(() => {
+      clearCanvas();
+
+      // ... (rest of the game logic)
+
+      gameLoop();
+    }, 100);
+  };
+}
 
 // Updated gameLoop function
 function gameLoop() {
@@ -189,6 +205,8 @@ function gameLoop() {
     gameLoop();
   }, 100);
 }
+
+
 canvas.addEventListener('touchstart', handleTouchStart, false);
 canvas.addEventListener('touchmove', handleTouchMove, false);
 canvas.addEventListener('touchend', handleTouchEnd, false);
@@ -243,19 +261,19 @@ function handleTouchEnd(e) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const startButton = document.getElementById("start-button");
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
+    gameLoop = createGameLoop();
     gameLoop();
   });
 });
 
 // Other event listeners
 document.addEventListener("keydown", handleInput);
-document.addEventListener('keydown', handleKeydown);
 canvas.addEventListener('touchstart', handleTouchStart, false);
 canvas.addEventListener('touchmove', handleTouchMove, false);
 canvas.addEventListener('touchend', handleTouchEnd, false);
+
 
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
