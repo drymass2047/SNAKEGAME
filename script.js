@@ -14,30 +14,33 @@ function handleTouchStart(event) {
   touchStartY = event.touches[0].clientY;
 }
 
-function handleTouchEnd(event) {
-  const touchEndX = event.changedTouches[0].clientX;
-  const touchEndY = event.changedTouches[0].clientY;
+function handleTouchMove(event) {
+  if (!touchStartX || !touchStartY) return;
 
-  const deltaX = touchEndX - touchStartX;
-  const deltaY = touchEndY - touchStartY;
+  const touchEndX = event.touches[0].clientX;
+  const touchEndY = event.touches[0].clientY;
 
-  if (Math.abs(deltaX) > Math.abs(deltaY)) {
-    if (deltaX > 0 && snake.direction.x !== -grid) {
-      snake.direction = { x: grid, y: 0 };
-    } else if (deltaX < 0 && snake.direction.x !== grid) {
+  const diffX = touchStartX - touchEndX;
+  const diffY = touchStartY - touchEndY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    if (diffX > 0) {
       snake.direction = { x: -grid, y: 0 };
+    } else {
+      snake.direction = { x: grid, y: 0 };
     }
   } else {
-    if (deltaY > 0 && snake.direction.y !== -grid) {
-      snake.direction = { x: 0, y: grid };
-    } else if (deltaY < 0 && snake.direction.y !== grid) {
+    if (diffY > 0) {
       snake.direction = { x: 0, y: -grid };
+    } else {
+      snake.direction = { x: 0, y: grid };
     }
   }
+
+  touchStartX = null;
+  touchStartY = null;
 }
 
-canvas.addEventListener("touchstart", handleTouchStart, false);
-canvas.addEventListener("touchend", handleTouchEnd, false);
 
 function initGame() {
   window.addEventListener("keydown", handleKeydown);
