@@ -189,6 +189,58 @@ function gameLoop() {
     gameLoop();
   }, 100);
 }
+canvas.addEventListener('touchstart', handleTouchStart, false);
+canvas.addEventListener('touchmove', handleTouchMove, false);
+canvas.addEventListener('touchend', handleTouchEnd, false);
+let touchStartX = 0;
+let touchStartY = 0;
+
+
+
+function handleTouchStart(e) {
+  e.preventDefault();
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+  e.preventDefault();
+}
+
+function handleTouchEnd(e) {
+  e.preventDefault();
+  const touchEndX = e.changedTouches[0].clientX;
+  const touchEndY = e.changedTouches[0].clientY;
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0) {
+      if (snake.dirX !== -1) {
+        snake.dirX = 1;
+        snake.dirY = 0;
+      }
+    } else {
+      if (snake.dirX !== 1) {
+        snake.dirX = -1;
+        snake.dirY = 0;
+      }
+    }
+  } else {
+    if (deltaY > 0) {
+      if (snake.dirY !== -1) {
+        snake.dirX = 0;
+        snake.dirY = 1;
+      }
+    } else {
+      if (snake.dirY !== 1) {
+        snake.dirX = 0;
+        snake.dirY = -1;
+      }
+    }
+  }
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const startButton = document.getElementById("start-button");
@@ -200,6 +252,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Other event listeners
 document.addEventListener("keydown", handleInput);
+document.addEventListener('keydown', handleKeydown);
+canvas.addEventListener('touchstart', handleTouchStart, false);
+canvas.addEventListener('touchmove', handleTouchMove, false);
+canvas.addEventListener('touchend', handleTouchEnd, false);
 
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
