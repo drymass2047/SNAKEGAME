@@ -6,6 +6,40 @@ const grid = 20;
 const snakeColor = "#00FF00";
 const foodColor = "#FF0000";
 let score = 0;
+let touchStartX = null;
+let touchStartY = null;
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchEnd(event) {
+  const touchEndX = event.changedTouches[0].clientX;
+  const touchEndY = event.changedTouches[0].clientY;
+
+  const deltaX = touchEndX - touchStartX;
+  const deltaY = touchEndY - touchStartY;
+
+  if (Math.abs(deltaX) > Math.abs(deltaY)) {
+    if (deltaX > 0 && snake.direction.x !== -grid) {
+      snake.direction = { x: grid, y: 0 };
+    } else if (deltaX < 0 && snake.direction.x !== grid) {
+      snake.direction = { x: -grid, y: 0 };
+    }
+  } else {
+    if (deltaY > 0 && snake.direction.y !== -grid) {
+      snake.direction = { x: 0, y: grid };
+    } else if (deltaY < 0 && snake.direction.y !== grid) {
+      snake.direction = { x: 0, y: -grid };
+    }
+  }
+}
+
+canvas.addEventListener("touchstart", handleTouchStart, false);
+canvas.addEventListener("touchend", handleTouchEnd, false);
+
+// The rest of the code remains the same
 
 class Snake {
   constructor() {
