@@ -297,6 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
     currentGameLoop();
   });
 
+  window.addEventListener('touchmove', (event) => {
+  event.preventDefault();
+}, { passive: false });
+  
   // Initial setup
   snake.body = [{ x: snake.x, y: snake.y }];
   generateFood();
