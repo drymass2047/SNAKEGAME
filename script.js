@@ -205,6 +205,7 @@ function generateBombs(numberOfBombs) {
   }
 }
 
+
 function getNumberOfBombs() {
   if (scoreValue >= 200) {
     return 3;
@@ -234,14 +235,11 @@ function gameLoop() {
     generateFood();
 
     // Update the number of bombs if the score reaches 100 or 200
-    if (scoreValue === 100 || scoreValue === 200) {
-      generateBombs(getNumberOfBombs());
-    }
-  } else {
-    if (snake.body.length > snake.maxBodySize) {
-      snake.body.pop();
-    }
-  }
+   if (scoreValue === 100 && bombs.length < 2) {
+  generateBombs(getNumberOfBombs());
+} else if (scoreValue === 200 && bombs.length < 3) {
+  generateBombs(getNumberOfBombs());
+}
 
   // Check if the snake collided with the bomb
   handleCollisionWithBomb();
