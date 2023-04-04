@@ -167,10 +167,10 @@ function createGameLoop() {
       gameLoop();
 
       currentGameLoop = createGameLoop();
-      currentGameLoop();
     }, 100); // You can adjust this value to control the speed of the game
   };
 }
+
 
 // Updated gameLoop function
 function gameLoop() {
