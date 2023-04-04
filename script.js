@@ -204,6 +204,7 @@ function reset() {
   };
   generateFood();
   generateBombs(getNumberOfBombs());
+  displayScores(); 
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
@@ -246,7 +247,11 @@ function saveScore(score) {
 
   // Save the scores back to localStorage
   localStorage.setItem('snake-scores', JSON.stringify(scores));
+
+  // Update the scoreboard
+  displayScores();
 }
+
 
 function displayScores() {
   // Retrieve the scores from localStorage
