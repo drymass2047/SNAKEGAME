@@ -255,11 +255,11 @@ function handleTouchEnd(e) {
     }
   }
 }
-Promise.all([
-  new Promise(resolve => foodImg.addEventListener('load', resolve)),
-  new Promise(resolve => bombImg.addEventListener('load', resolve))
-]).then(() => {
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  Promise.all([
+    new Promise(resolve => foodImg.addEventListener('load', resolve)),
+    new Promise(resolve => bombImg.addEventListener('load', resolve))
+  ]).then(() => {
     startButton.addEventListener("click", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
@@ -284,4 +284,5 @@ Promise.all([
     }, { passive: false });
   });
 });
+
 
