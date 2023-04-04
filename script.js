@@ -58,7 +58,15 @@ function clearCanvas() {
   }
 }
 
-
+function getGameSpeed() {
+  if (scoreValue >= 200) {
+    return 50; // 2x speed
+  } else if (scoreValue >= 100) {
+    return 66; // 1.5x speed
+  } else {
+    return 100; // normal speed
+  }
+}
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -77,7 +85,9 @@ function drawFood() {
 }
 
 function drawBomb() {
-  ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
+  for (const bomb of bombs) {
+    ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
+  }
 }
 
 function drawScore() {
@@ -156,12 +166,16 @@ function checkGameOver() {
 
 function handleCollisionWithBomb() {
   const head = snake.body[0];
-  if (head.x === bomb.x && head.y === bomb.y) {
-    isGameOver = true;
-    gameOver.style.display = "block";
-    finalScore.textContent = scoreValue;
+  for (const bomb of bombs) {
+    if (head.x === bomb.x && head.y === bomb.y) {
+      isGameOver = true;
+      gameOver.style.display = "block";
+      finalScore.textContent = scoreValue;
+      break;
+    }
   }
 }
+
 
 // Existing variables and functions
 function generateSafeBomb() {
@@ -181,10 +195,25 @@ function reset() {
     maxBodySize: 1,
   };
   generateFood();
-  generateSafeBomb();
+  generateBombs(getNumberOfBombs());
+}
+function generateBombs(numberOfBombs) {
+  bombs = [];
+  for (let i = 0; i < numberOfBombs; i++) {
+    generateSafeBomb();
+    bombs.push({ x: bomb.x, y: bomb.y });
+  }
 }
 
-
+function getNumberOfBombs() {
+  if (scoreValue >= 200) {
+    return 3;
+  } else if (scoreValue >= 100) {
+    return 2;
+  } else {
+    return 1;
+  }
+}
 // Updated gameLoop function
 function gameLoop() {
   if (isGameOver) {
@@ -225,7 +254,7 @@ function gameLoop() {
   checkGameOver();
 
   // Add this line to call the gameLoop function again
-  setTimeout(gameLoop, 100);
+  setTimeout(gameLoop, getGameSpeed());
 }
 
 
