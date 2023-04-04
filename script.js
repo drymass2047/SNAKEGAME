@@ -193,26 +193,11 @@ function gameLoop() {
 
   drawScore();
 
-  // Move the checkGameOver function call to the end of the gameLoop function
+  // Call the checkGameOver function at the end of the gameLoop function
   checkGameOver();
-}
 
-
-function createGameLoop() {
-  return () => {
-    if (isGameOver) {
-      return;
-    }
-
-    setTimeout(() => {
-      clearCanvas();
-
-      // Call the gameLoop function
-      gameLoop();
-
-      currentGameLoop();
-    }, 100); // You can adjust this value to control the speed of the game
-  };
+  // Add this line to call the gameLoop function again
+  setTimeout(gameLoop, 100);
 }
 
 
@@ -268,13 +253,25 @@ function handleTouchEnd(e) {
   }
 }
 
+function createGameLoop() {
+  return () => {
+    if (isGameOver) {
+      return;
+    }
+
+    clearCanvas();
+
+    // Call the gameLoop function
+    gameLoop();
+  };
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     reset();
     currentGameLoop = createGameLoop();
-    currentGameLoop();
+    gameLoop();
   });
 
   // Other event listeners
@@ -287,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameOver.style.display = "none";
     reset();
     currentGameLoop = createGameLoop();
-    currentGameLoop();
+    gameLoop();
   });
 
   window.addEventListener('touchmove', (event) => {
@@ -295,3 +292,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: false });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  startButton.addEventListener("click", () => {
+    startMenu.style.display = "none";
+    reset();
+    currentGameLoop = createGameLoop();
+    currentGameLoop();
+  });
