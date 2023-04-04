@@ -230,6 +230,11 @@ function saveScore(score) {
   } else {
     // Otherwise, parse the scores string into an array
     scores = JSON.parse(scores);
+
+    // Make sure scores is an array
+    if (!Array.isArray(scores)) {
+      scores = [];
+    }
   }
 
   // Add the new score to the array
@@ -244,6 +249,7 @@ function saveScore(score) {
   // Save the scores back to localStorage
   localStorage.setItem('snake-scores', JSON.stringify(scores));
 }
+
 
 function displayScores() {
   // Retrieve the scores from localStorage
