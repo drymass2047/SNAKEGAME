@@ -265,13 +265,12 @@ function createGameLoop() {
     gameLoop();
   };
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     reset();
     currentGameLoop = createGameLoop();
-    gameLoop();
+    currentGameLoop();
   });
 
   // Other event listeners
@@ -284,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gameOver.style.display = "none";
     reset();
     currentGameLoop = createGameLoop();
-    gameLoop();
+    currentGameLoop();
   });
 
   window.addEventListener('touchmove', (event) => {
@@ -292,10 +291,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: false });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  startButton.addEventListener("click", () => {
-    startMenu.style.display = "none";
-    reset();
-    currentGameLoop = createGameLoop();
-    currentGameLoop();
-  });
+
