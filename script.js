@@ -182,8 +182,13 @@ function handleCollisionWithBomb() {
 
 // Existing variables and functions
 function generateSafeBomb() {
+  let counter = 0;
   do {
     generateBomb();
+    counter++;
+    if (counter > 100) { // Limit the number of attempts
+      return;
+    }
   } while (Math.abs(bomb.x - snake.x) < snakeSize * 3 || Math.abs(bomb.y - snake.y) < snakeSize * 3);
 }
 function reset() {
