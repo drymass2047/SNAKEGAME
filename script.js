@@ -182,13 +182,8 @@ function handleCollisionWithBomb() {
 
 // Existing variables and functions
 function generateSafeBomb() {
-  let counter = 0;
   do {
     generateBomb();
-    counter++;
-    if (counter > 100) { // Limit the number of attempts
-      return;
-    }
   } while (Math.abs(bomb.x - snake.x) < snakeSize * 3 || Math.abs(bomb.y - snake.y) < snakeSize * 3);
 }
 function reset() {
@@ -204,7 +199,6 @@ function reset() {
   };
   generateFood();
   generateBombs(getNumberOfBombs());
-  displayScores(); 
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
@@ -247,11 +241,7 @@ function saveScore(score) {
 
   // Save the scores back to localStorage
   localStorage.setItem('snake-scores', JSON.stringify(scores));
-
-  // Update the scoreboard
-  displayScores();
 }
-
 
 function displayScores() {
   // Retrieve the scores from localStorage
@@ -277,13 +267,7 @@ function displayScores() {
 
   // Replace the final score element with the score list
   finalScore.parentNode.replaceChild(scoreList, finalScore);
-
-  // Update the "Your final score:" text
-  const yourScore = document.createElement('p');
-  yourScore.textContent = `Your final score: ${scoreValue}`;
-  finalScore.parentNode.insertBefore(yourScore, finalScore);
 }
-
 
 // Updated gameLoop function
 function gameLoop() {
@@ -415,5 +399,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: false });
   });
 });
-
 
