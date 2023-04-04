@@ -9,6 +9,7 @@ const restartButton = document.getElementById("restart-button");
 
 let isGameOver = false;
 let scoreValue = 0;
+let currentGameLoop;
 
 let snake = {
   x: canvas.width / 2,
@@ -150,7 +151,6 @@ function reset() {
 }
 function createGameLoop() {
   return () => {
-    drawScore();
     if (isGameOver) {
       return;
     }
@@ -160,7 +160,7 @@ function createGameLoop() {
 
       // ... (rest of the game logic)
 
-      gameLoop();
+      currentGameLoop();
     }, 100);
   };
 }
@@ -278,7 +278,7 @@ canvas.addEventListener('touchend', handleTouchEnd, false);
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
   reset();
-  gameLoop();
+  currentGameLoop();
 });
 
 
