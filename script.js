@@ -143,12 +143,13 @@ function reset() {
     y: canvas.height / 2,
     dirX: 1,
     dirY: 0,
-    body: [],
+    body: [{ x: canvas.width / 2, y: canvas.height / 2 }],
     maxBodySize: 1,
   };
   generateFood();
   generateBomb();
 }
+
 function createGameLoop() {
   return () => {
     if (isGameOver) {
@@ -278,11 +279,14 @@ function handleTouchEnd(e) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  reset(); // Add this line to call reset on the initial game start
+  
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     currentGameLoop = createGameLoop();
     currentGameLoop();
   });
+
 
   // Other event listeners
   document.addEventListener("keydown", handleInput);
