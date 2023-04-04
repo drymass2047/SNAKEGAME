@@ -203,6 +203,7 @@ function reset() {
    // Call displayScores to update the list of scores
   displayScores();
   clearInterval(currentGameLoop);
+console.log("reset called");
 
 }
 function generateBombs(numberOfBombs) {
@@ -266,6 +267,7 @@ function saveScore(score) {
 
 function displayScores() {
   // Retrieve the scores from localStorage
+  console.log("finalScore", finalScore);
   let scores = localStorage.getItem('snake-scores');
 
   // If no scores exist, display a message
