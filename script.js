@@ -270,25 +270,22 @@ document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     createGameLoop();
-     });
+  });
 
-// Other event listeners
-document.addEventListener("keydown", handleInput);
-canvas.addEventListener('touchstart', handleTouchStart, false);
-canvas.addEventListener('touchmove', handleTouchMove, false);
-canvas.addEventListener('touchend', handleTouchEnd, false);
+  // Other event listeners
+  document.addEventListener("keydown", handleInput);
+  canvas.addEventListener('touchstart', handleTouchStart, false);
+  canvas.addEventListener('touchmove', handleTouchMove, false);
+  canvas.addEventListener('touchend', handleTouchEnd, false);
 
+  restartButton.addEventListener("click", () => {
+    gameOver.style.display = "none";
+    reset();
+    createGameLoop(); // Change this line
+  });
 
-restartButton.addEventListener("click", () => {
-  gameOver.style.display = "none";
-  reset();
-  createGameLoop(); // Change this line
+  // Initial setup
+  snake.body = [{ x: snake.x, y: snake.y }];
+  generateFood();
+  generateBomb();
 });
-
-
-
-
-// Initial setup
-snake.body = [{ x: snake.x, y: snake.y }];
-generateFood();
-generateBomb();
