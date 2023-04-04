@@ -260,30 +260,28 @@ Promise.all([
   new Promise(resolve => bombImg.addEventListener('load', resolve))
 ]).then(() => {
   document.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener("DOMContentLoaded", () => {
- startButton.addEventListener("click", () => {
-    startMenu.style.display = "none";
-    instructions.style.display = "none"; // Add this line to hide instructions
-    reset();
-    gameLoop();
+    startButton.addEventListener("click", () => {
+      startMenu.style.display = "none";
+      instructions.style.display = "none"; // Add this line to hide instructions
+      reset();
+      gameLoop();
+    });
+
+    // Other event listeners
+    document.addEventListener("keydown", handleInput);
+    canvas.addEventListener('touchstart', handleTouchStart, false);
+    canvas.addEventListener('touchmove', handleTouchMove, false);
+    canvas.addEventListener('touchend', handleTouchEnd, false);
+
+    restartButton.addEventListener("click", () => {
+      gameOver.style.display = "none";
+      reset();
+      gameLoop();
+    });
+
+    window.addEventListener('touchmove', (event) => {
+      event.preventDefault();
+    }, { passive: false });
   });
-
-  // Other event listeners
-  document.addEventListener("keydown", handleInput);
-  canvas.addEventListener('touchstart', handleTouchStart, false);
-  canvas.addEventListener('touchmove', handleTouchMove, false);
-  canvas.addEventListener('touchend', handleTouchEnd, false);
-
-  restartButton.addEventListener("click", () => {
-    gameOver.style.display = "none";
-    reset();
-    gameLoop();
-  });
-
-  window.addEventListener('touchmove', (event) => {
-    event.preventDefault();
-  }, { passive: false });
 });
 
- });
-});
