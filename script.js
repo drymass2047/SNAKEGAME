@@ -31,30 +31,30 @@ let bomb = {
 };
 
 function clearCanvas() {
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "#1b4d30"; // Dark green color for the background
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawSnake() {
-  ctx.fillStyle = "green";
+  ctx.fillStyle = "#76b852"; // Lighter shade of green for the snake
   for (const segment of snake.body) {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
 
 function drawFood() {
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "#ffcc29"; // Yellow color for the food
   ctx.fillRect(food.x, food.y, snakeSize, snakeSize);
 }
 
 function drawBomb() {
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "#a0522d"; // Brown color for the bomb
   ctx.fillRect(bomb.x, bomb.y, snakeSize, snakeSize);
 }
 
 function drawScore() {
   ctx.font = "16px Arial";
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
 }
 
