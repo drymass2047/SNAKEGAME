@@ -127,12 +127,14 @@ function checkGameOver() {
 
 
 function handleCollisionWithBomb() {
-  if (snake.x === bomb.x && snake.y === bomb.y) {
+  const head = snake.body[0];
+  if (head.x === bomb.x && head.y === bomb.y) {
     isGameOver = true;
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
   }
 }
+
 // Existing variables and functions
 function generateSafeBomb() {
   do {
