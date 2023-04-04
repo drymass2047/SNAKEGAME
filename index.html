@@ -43,7 +43,6 @@
 <body>
   <div class="container">
     <div id="instructions">
-
       <h2>Instructions:</h2>
       <ul>
         <li>Use the arrow keys or swipe on the screen to control the snake.</li>
@@ -57,16 +56,21 @@
       <button id="start-button">Start Game</button>
     </div>
     
-     <canvas id="canvas" width="400" height="400" style="border: 1px solid #000;"></canvas>
+    <canvas id="canvas" width="400" height="400" style="border: 1px solid #000;"></canvas>
         
-<div id="game-over" style="display: none;">
-  <h2 class="start-menu-text">Game Over!</h2>
-  <p class="start-menu-text">Your final score: <span id="final-score"></span></p>
-  <button id="restart-button">Restart Game</button>
-</div>    
- <span id="final-score">0</span>
-
+    <div id="game-over" style="display: none;">
+      <h2 class="start-menu-text">Game Over!</h2>
+      <p class="start-menu-text">Your final score: <span id="final-score"></span></p>
+      <button id="restart-button">Restart Game</button>
+    </div>  
+  </div>
     
   <script src="script.js"></script>
+  <script>
+    // JavaScript code that accesses the final-score element
+    var finalScoreElement = document.getElementById("final-score");
+    console.log(finalScoreElement.innerHTML);
+  </script>
 </body>
 </html>
+
