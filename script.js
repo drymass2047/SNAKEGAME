@@ -39,7 +39,25 @@ let bomb = {
 function clearCanvas() {
   ctx.fillStyle = "#1b4d30"; // Dark green color for the background
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the grid pattern
+  const gridSize = snakeSize;
+  ctx.strokeStyle = "#2c6a43"; // Slightly lighter green color for the grid lines
+  ctx.lineWidth = 1;
+  for (let x = gridSize; x < canvas.width; x += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+  for (let y = gridSize; y < canvas.height; y += gridSize) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
 }
+
 
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
