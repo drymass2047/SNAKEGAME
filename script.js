@@ -253,18 +253,7 @@ function handleTouchEnd(e) {
   }
 }
 
-function createGameLoop() {
-  return () => {
-    if (isGameOver) {
-      return;
-    }
 
-    clearCanvas();
-
-    // Call the gameLoop function
-    gameLoop();
-  };
-}
 document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
