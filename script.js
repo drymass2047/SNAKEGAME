@@ -134,7 +134,11 @@ function handleCollisionWithBomb() {
   }
 }
 // Existing variables and functions
-
+function generateSafeBomb() {
+  do {
+    generateBomb();
+  } while (Math.abs(bomb.x - snake.x) < snakeSize * 3 || Math.abs(bomb.y - snake.y) < snakeSize * 3);
+}
 function reset() {
   isGameOver = false;
   scoreValue = 0;
@@ -147,7 +151,7 @@ function reset() {
     maxBodySize: 1,
   };
   generateFood();
-  generateBomb();
+  generateSafeBomb();
 }
 
 function createGameLoop() {
@@ -167,7 +171,6 @@ function createGameLoop() {
     }, 100); // You can adjust this value to control the speed of the game
   };
 }
-
 
 // Updated gameLoop function
 function gameLoop() {
@@ -308,5 +311,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial setup
   snake.body = [{ x: snake.x, y: snake.y }];
   generateFood();
-  generateBomb();
+  generateSafeBomb();
 });
