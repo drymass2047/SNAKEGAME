@@ -6,6 +6,7 @@ const startButton = document.getElementById("start-button");
 const gameOver = document.getElementById("game-over");
 const finalScore = document.getElementById("final-score");
 const restartButton = document.getElementById("restart-button");
+const instructions = document.getElementById("instructions");
 
 let isGameOver = false;
 let scoreValue = 0;
@@ -261,11 +262,11 @@ document.addEventListener("DOMContentLoaded", () => {
     new Promise(resolve => bombImg.addEventListener('load', resolve))
   ]).then(() => {
     startButton.addEventListener("click", () => {
-      startMenu.style.display = "none";
-      instructions.style.display = "none"; // Add this line to hide instructions
-      reset();
-      gameLoop();
-    });
+  startMenu.style.display = "none";
+  instructions.style.display = "none"; // Add this line to hide instructions
+  reset();
+  gameLoop();
+});
 
     // Other event listeners
     document.addEventListener("keydown", handleInput);
