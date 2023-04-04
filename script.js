@@ -270,14 +270,12 @@ function handleTouchEnd(e) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  reset(); // Add this line to call reset on the initial game start
-  
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
+    reset();
     currentGameLoop = createGameLoop();
     currentGameLoop();
   });
-
 
   // Other event listeners
   document.addEventListener("keydown", handleInput);
@@ -293,11 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener('touchmove', (event) => {
-  event.preventDefault();
-}, { passive: false });
-  
-  // Initial setup
-  snake.body = [{ x: snake.x, y: snake.y }];
-  generateFood();
-  generateSafeBomb();
+    event.preventDefault();
+  }, { passive: false });
 });
+
