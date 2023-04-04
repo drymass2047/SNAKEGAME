@@ -277,7 +277,13 @@ function displayScores() {
 
   // Replace the final score element with the score list
   finalScore.parentNode.replaceChild(scoreList, finalScore);
+
+  // Update the "Your final score:" text
+  const yourScore = document.createElement('p');
+  yourScore.textContent = `Your final score: ${scoreValue}`;
+  finalScore.parentNode.insertBefore(yourScore, finalScore);
 }
+
 
 // Updated gameLoop function
 function gameLoop() {
