@@ -10,6 +10,11 @@ const restartButton = document.getElementById("restart-button");
 let isGameOver = false;
 let scoreValue = 0;
 let currentGameLoop;
+let foodImg = new Image();
+foodImg.src = "apple.gif";
+
+let bombImg = new Image();
+bombImg.src = "boom.gif";
 
 let snake = {
   x: canvas.width / 2,
@@ -43,13 +48,11 @@ function drawSnake() {
 }
 
 function drawFood() {
-  ctx.fillStyle = "#ffcc29"; // Yellow color for the food
-  ctx.fillRect(food.x, food.y, snakeSize, snakeSize);
+  ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
 }
 
 function drawBomb() {
-  ctx.fillStyle = "#a0522d"; // Brown color for the bomb
-  ctx.fillRect(bomb.x, bomb.y, snakeSize, snakeSize);
+  ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
 }
 
 function drawScore() {
@@ -252,9 +255,12 @@ function handleTouchEnd(e) {
     }
   }
 }
-
-
-document.addEventListener("DOMContentLoaded", () => {
+Promise.all([
+  new Promise(resolve => foodImg.addEventListener('load', resolve)),
+  new Promise(resolve => bombImg.addEventListener('load', resolve))
+]).then(() => {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
  startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     instructions.style.display = "none"; // Add this line to hide instructions
@@ -279,4 +285,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: false });
 });
 
-
+ });
+});
