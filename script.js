@@ -158,12 +158,15 @@ function createGameLoop() {
     setTimeout(() => {
       clearCanvas();
 
-      // ... (rest of the game logic)
+      // Call the gameLoop function
+      gameLoop();
 
       currentGameLoop();
     }, 100);
   };
 }
+
+
 
 // Updated gameLoop function
 function gameLoop() {
@@ -278,12 +281,12 @@ canvas.addEventListener('touchend', handleTouchEnd, false);
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
   reset();
-  currentGameLoop();
+  gameLoop(); // Change this line
 });
 
 
 
-
 // Initial setup
+snake.body = [{ x: snake.x, y: snake.y }];
 generateFood();
 generateBomb();
