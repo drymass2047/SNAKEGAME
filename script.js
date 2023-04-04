@@ -199,6 +199,8 @@ function reset() {
   };
   generateFood();
   generateBombs(getNumberOfBombs());
+   // Call displayScores to update the list of scores
+  displayScores();
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
