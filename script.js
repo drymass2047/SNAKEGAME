@@ -154,24 +154,6 @@ function reset() {
   generateSafeBomb();
 }
 
-function createGameLoop() {
-  return () => {
-    if (isGameOver) {
-      return;
-    }
-
-    setTimeout(() => {
-      clearCanvas();
-
-      // Call the gameLoop function
-      gameLoop();
-
-      // Remove the recursive call, just call the currentGameLoop function
-      currentGameLoop();
-    }, 100); // You can adjust this value to control the speed of the game
-  };
-}
-
 
 // Updated gameLoop function
 function gameLoop() {
