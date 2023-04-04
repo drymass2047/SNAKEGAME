@@ -13,30 +13,45 @@
       margin: 0;
       background-color: #f0f0f0;
     }
+    .container {
+      position: relative;
+    }
     canvas {
       border: 1px solid black;
+    }
+    #instructions {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 20px;
+      border: 1px solid black;
+      z-index: 5;
     }
   </style>
 </head>
 <body>
-   <div id="instructions">
-          <h2>Instructions:</h2>
-          <ul>
-            <li>Use the arrow keys or swipe on the screen to control the snake.</li>
-            <li>Eat the yellow food to grow and increase your score.</li>
-            <li>Avoid colliding with the brown bombs and the walls, or it's game over!</li>
-            <li>Don't eat your own tail.</li>
-          </ul>
-        </div>
-  <div id="start-menu" style="position: absolute; z-index: 10;">
-    <button id="start-button">Start Game</button>
+  <div class="container">
+    <div id="instructions">
+      <h2>Instructions:</h2>
+      <ul>
+        <li>Use the arrow keys or swipe on the screen to control the snake.</li>
+        <li>Eat the yellow food to grow and increase your score.</li>
+        <li>Avoid colliding with the brown bombs and the walls, or it's game over!</li>
+        <li>Don't eat your own tail.</li>
+      </ul>
+    </div>
+    <div id="start-menu" style="position: absolute; z-index: 10;">
+      <button id="start-button">Start Game</button>
+    </div>
+    <div id="game-over" style="position: absolute; z-index: 10; display: none;">
+      <p>Game Over!</p>
+      <p>Your final score: <span id="final-score"></span></p>
+      <button id="restart-button">Restart Game</button>
+    </div>
+    <canvas id="canvas" width="400" height="400"></canvas>
   </div>
-  <div id="game-over" style="position: absolute; z-index: 10; display: none;">
-    <p>Game Over!</p>
-    <p>Your final score: <span id="final-score"></span></p>
-    <button id="restart-button">Restart Game</button>
-  </div>
-  <canvas id="canvas" width="400" height="400"></canvas>
   <script src="script.js"></script>
 </body>
 </html>
