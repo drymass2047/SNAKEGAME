@@ -12,6 +12,7 @@ let isGameOver = false;
 let scoreValue = 0;
 let currentGameLoop;
 let foodImg = new Image();
+let bombs = [];
 foodImg.src = "apple.png";
 
 let bombImg = new Image();
@@ -201,11 +202,23 @@ function reset() {
   generateBombs(getNumberOfBombs());
    // Call displayScores to update the list of scores
   displayScores();
+  clearInterval(currentGameLoop);
+
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
   for (let i = 0; i < numberOfBombs; i++) {
-    generateSafeBomb();
+    let isSafe = false;
+    while (!isSafe) {
+      generateBomb();
+      isSafe = true;
+      for (const segment of snake.body) {
+        if (Math.abs(bomb.x - segment.x) < snakeSize && Math.abs(bomb.y - segment.y) < snakeSize) {
+          isSafe = false;
+          break;
+        }
+      }
+    }
     bombs.push({ x: bomb.x, y: bomb.y });
   }
 }
