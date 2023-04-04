@@ -227,6 +227,8 @@ function gameLoop() {
   const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
   snake.body.unshift(head);
 
+  if (snake.body.length > snake.maxBodySize) snake.body.pop();
+
   // Check if the snake ate the food
   if (head.x === food.x && head.y === food.y) {
     scoreValue += 10;
@@ -235,11 +237,12 @@ function gameLoop() {
     generateFood();
 
     // Update the number of bombs if the score reaches 100 or 200
-   if (scoreValue === 100 && bombs.length < 2) {
-  generateBombs(getNumberOfBombs());
-} else if (scoreValue === 200 && bombs.length < 3) {
-  generateBombs(getNumberOfBombs());
-}
+    if (scoreValue === 100 && bombs.length < 2) {
+      generateBombs(getNumberOfBombs());
+    } else if (scoreValue === 200 && bombs.length < 3) {
+      generateBombs(getNumberOfBombs());
+    }
+  }
 
   // Check if the snake collided with the bomb
   handleCollisionWithBomb();
@@ -260,25 +263,6 @@ function gameLoop() {
   setTimeout(gameLoop, getGameSpeed());
 }
 
-
-  // Check if the snake collided with the bomb
-  handleCollisionWithBomb();
-
-  drawSnake();
-  drawFood();
-  drawBomb();
-
-  snake.x = head.x;
-  snake.y = head.y;
-
-  drawScore();
-
-  // Call the checkGameOver function at the end of the gameLoop function
-  checkGameOver();
-
-  // Add this line to call the gameLoop function again
-  setTimeout(gameLoop, getGameSpeed());
-}
 
 
 canvas.addEventListener('touchstart', handleTouchStart, false);
