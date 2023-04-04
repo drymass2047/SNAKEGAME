@@ -179,6 +179,8 @@ function gameLoop() {
     return;
   }
 
+  checkGameOver(); // Move this line to the beginning of the gameLoop function
+
   clearCanvas();
 
   // Move the snake
@@ -203,13 +205,13 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-  checkGameOver();
 
   snake.x = head.x;
   snake.y = head.y;
 
   drawScore();
 }
+
 
 function createGameLoop() {
   return () => {
