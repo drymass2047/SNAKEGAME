@@ -209,7 +209,20 @@ function gameLoop() {
 }
 
 function createGameLoop() {
-  requestAnimationFrame(gameLoop);
+  return () => {
+    if (isGameOver) {
+      return;
+    }
+
+    setTimeout(() => {
+      clearCanvas();
+
+      // Call the gameLoop function
+      gameLoop();
+
+      currentGameLoop();
+    }, 100); // You can adjust this value to control the speed of the game
+  };
 }
 
 
@@ -269,7 +282,8 @@ function handleTouchEnd(e) {
 document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
-    createGameLoop();
+    currentGameLoop = createGameLoop();
+    currentGameLoop();
   });
 
   // Other event listeners
@@ -281,7 +295,8 @@ document.addEventListener("DOMContentLoaded", () => {
   restartButton.addEventListener("click", () => {
     gameOver.style.display = "none";
     reset();
-    createGameLoop(); // Change this line
+    currentGameLoop = createGameLoop();
+    currentGameLoop();
   });
 
   // Initial setup
