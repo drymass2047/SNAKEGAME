@@ -42,11 +42,17 @@ function clearCanvas() {
 }
 
 function drawSnake() {
-  ctx.fillStyle = "#76b852"; // Lighter shade of green for the snake
-  for (const segment of snake.body) {
+  const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
+
+  for (let i = 0; i < snake.body.length; i++) {
+    const segment = snake.body[i];
+    const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
+
+    ctx.fillStyle = gradientColors[colorIndex];
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
+
 
 function drawFood() {
   ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
