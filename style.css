@@ -1,19 +1,29 @@
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: black;
+/* Update the background color of the button */
+#start-button, #restart-button {
+  background-color: #4CAF50;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition-duration: 0.4s;
 }
 
-h1 {
-  margin-bottom: 10px;
+/* Add a hover effect to the button */
+#start-button:hover, #restart-button:hover {
+  background-color: #45a049;
 }
 
-canvas {
-  border: 1px solid white;
+/* Update the color of the text on the start menu */
+.start-menu-text {
+  color: #4CAF50;
+  font-size: 24px;
+}
+
+#canvas {
+  display: none;
 }
