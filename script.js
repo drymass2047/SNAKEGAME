@@ -232,11 +232,36 @@ function gameLoop() {
 
     snake.maxBodySize++;
     generateFood();
+
+    // Update the number of bombs if the score reaches 100 or 200
+    if (scoreValue === 100 || scoreValue === 200) {
+      generateBombs(getNumberOfBombs());
+    }
   } else {
     if (snake.body.length > snake.maxBodySize) {
       snake.body.pop();
     }
   }
+
+  // Check if the snake collided with the bomb
+  handleCollisionWithBomb();
+
+  drawSnake();
+  drawFood();
+  drawBomb();
+
+  snake.x = head.x;
+  snake.y = head.y;
+
+  drawScore();
+
+  // Call the checkGameOver function at the end of the gameLoop function
+  checkGameOver();
+
+  // Add this line to call the gameLoop function again
+  setTimeout(gameLoop, getGameSpeed());
+}
+
 
   // Check if the snake collided with the bomb
   handleCollisionWithBomb();
