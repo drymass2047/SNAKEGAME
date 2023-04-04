@@ -170,43 +170,46 @@ function createGameLoop() {
 
 // Updated gameLoop function
 function gameLoop() {
-  drawScore();
   if (isGameOver) {
     return;
   }
 
-  setTimeout(() => {
-    clearCanvas();
+  clearCanvas();
 
-    // Move the snake
-    const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
-    snake.body.unshift(head);
+  // Move the snake
+  const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
+  snake.body.unshift(head);
 
-    // Check if the snake ate the food
-    if (head.x === food.x && head.y === food.y) {
-      scoreValue += 10;
-      
-      snake.maxBodySize++;
-      generateFood();
-    } else {
-      if (snake.body.length > snake.maxBodySize) {
-        snake.body.pop();
-      }
+  // Check if the snake ate the food
+  if (head.x === food.x && head.y === food.y) {
+    scoreValue += 10;
+
+    snake.maxBodySize++;
+    generateFood();
+  } else {
+    if (snake.body.length > snake.maxBodySize) {
+      snake.body.pop();
     }
+  }
 
-    // Check if the snake collided with the bomb
-    handleCollisionWithBomb();
+  // Check if the snake collided with the bomb
+  handleCollisionWithBomb();
 
-    drawSnake();
-    drawFood();
-    drawBomb();
-    checkGameOver();
+  drawSnake();
+  drawFood();
+  drawBomb();
+  checkGameOver();
 
-    snake.x = head.x;
-    snake.y = head.y;
+  snake.x = head.x;
+  snake.y = head.y;
 
-    gameLoop();
-  }, 100);
+  drawScore();
+
+  requestAnimationFrame(gameLoop);
+}
+
+function createGameLoop() {
+  requestAnimationFrame(gameLoop);
 }
 
 
@@ -266,10 +269,8 @@ function handleTouchEnd(e) {
 document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
-    gameLoop = createGameLoop();
-    gameLoop();
-  });
-});
+    createGameLoop();
+     });
 
 // Other event listeners
 document.addEventListener("keydown", handleInput);
@@ -281,8 +282,9 @@ canvas.addEventListener('touchend', handleTouchEnd, false);
 restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
   reset();
-  gameLoop(); // Change this line
+  createGameLoop(); // Change this line
 });
+
 
 
 
