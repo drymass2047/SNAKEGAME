@@ -24,9 +24,6 @@
   font-size: 24px !important;
 }
 
-#canvas {
-  display: none;
-}
 
 body {
   display: flex;
