@@ -258,8 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   startButton.addEventListener("click", () => {
     startMenu.style.display = "none";
     reset();
-    currentGameLoop = createGameLoop();
-    currentGameLoop();
+    gameLoop();
   });
 
   // Other event listeners
@@ -271,8 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
   restartButton.addEventListener("click", () => {
     gameOver.style.display = "none";
     reset();
-    currentGameLoop = createGameLoop();
-    currentGameLoop();
+    gameLoop();
   });
 
   window.addEventListener('touchmove', (event) => {
