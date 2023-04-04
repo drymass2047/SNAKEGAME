@@ -20,8 +20,8 @@
 
 /* Update the color of the text on the start menu */
 .start-menu-text {
-  color: #4CAF50;
-  font-size: 24px;
+ color: #4CAF50 !important;
+  font-size: 24px !important;
 }
 
 #canvas {
@@ -43,18 +43,18 @@ h1 {
 }
 
 button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  padding: 12px 24px;
+  background-color: #4CAF50 !important;
+  border: none !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  cursor: pointer !important;
+  padding: 12px 24px !important;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #45a049 !important;
 }
