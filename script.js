@@ -12,10 +12,10 @@ let isGameOver = false;
 let scoreValue = 0;
 let currentGameLoop;
 let foodImg = new Image();
-foodImg.src = "apple.gif";
+foodImg.src = "apple.png";
 
 let bombImg = new Image();
-bombImg.src = "boom.gif";
+bombImg.src = "bomb.png";
 
 let snake = {
   x: canvas.width / 2,
