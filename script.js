@@ -204,8 +204,6 @@ function gameLoop() {
   snake.y = head.y;
 
   drawScore();
-
-  requestAnimationFrame(gameLoop);
 }
 
 function createGameLoop() {
