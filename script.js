@@ -14,6 +14,9 @@ let currentGameLoop;
 let foodImg = new Image();
 foodImg.src = "apple.png";
 let funnyMode = false;
+let level = 1;
+let gameDuration = 0;
+let startTime = new Date().getTime();
 
 let bombImg = new Image();
 bombImg.src = "bomb.png";
@@ -225,8 +228,21 @@ function getNumberOfBombs() {
     return 1;
   }
 }
+function drawLevelAndDuration() {
+  const minutes = Math.floor(gameDuration / 60000);
+  const seconds = ((gameDuration % 60000) / 1000).toFixed(0);
+  const formattedTime = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
+
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Level: ${level} | Time: ${formattedTime}`, 10, 40);
+}
+
 // Updated gameLoop function
 function gameLoop() {
+  // Call the checkGameOver function at the beginning of the gameLoop function
+  checkGameOver();
+
   if (isGameOver) {
     return;
   }
@@ -252,6 +268,15 @@ function gameLoop() {
   if (head.x === food.x && head.y === food.y) {
     scoreValue += 10;
 
+    // Update the level based on the player's score
+    if (scoreValue >= 200) {
+      level = 3;
+    } else if (scoreValue >= 100) {
+      level = 2;
+    } else {
+      level = 1;
+    }
+
     snake.maxBodySize++;
     generateFood();
 
@@ -274,13 +299,15 @@ function gameLoop() {
   snake.y = head.y;
 
   drawScore();
+  drawLevelAndDuration();
 
-  // Call the checkGameOver function
-  checkGameOver();
+  // Update the game duration
+  gameDuration = new Date().getTime() - startTime;
 
   // Add this line to call the gameLoop function again
   setTimeout(gameLoop, getGameSpeed());
 }
+
 
 
 
