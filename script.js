@@ -69,6 +69,10 @@ function showInstructions() {
     button.style.top = `${newButtonTop}px`;
   }
 }
+
+const showInstructionsButton = document.getElementById("show-instructions-button");
+showInstructionsButton.addEventListener("click", showInstructions);
+
 function clearCanvas() {
   ctx.fillStyle = "#1b4d30"; // Dark green color for the background
   ctx.fillRect(0, 0, canvas.width, canvas.height);
