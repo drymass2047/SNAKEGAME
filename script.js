@@ -380,7 +380,8 @@ function showLeaderboard() {
       const li = document.createElement('li');
 
      // Display the score and timestamp
-const formattedTime = new Date(timestamp).toLocaleString();
+const date = new Date(timestamp);
+const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
 const formattedTimestamp = formattedTime.replace(',', '');
 li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
 
