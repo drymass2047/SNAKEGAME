@@ -367,48 +367,53 @@ function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
 
-  const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(5);
+  const scoresRef = firebase.database().ref('leaderboard');
 
   scoresRef.once('value', (snapshot) => {
     let rank = 1;
-    const uniqueScores = {};
+    const uniqueScores = [];
+    const allScores = [];
 
     snapshot.forEach((userSnapshot) => {
       userSnapshot.forEach((scoreSnapshot) => {
         const childData = scoreSnapshot.val();
         const score = childData.score;
-        let timestamp = childData.timestamp;
+        const timestamp = childData.timestamp;
 
-        if (!timestamp) {
-          timestamp = 'N/A';
-        } else {
-          timestamp = parseInt(timestamp);
-          if (isNaN(timestamp)) {
-            timestamp = 'Invalid Timestamp';
-          } else {
-            timestamp = new Date(timestamp);
-            timestamp = `${timestamp.getFullYear()}/${(timestamp.getMonth() + 1).toString().padStart(2, '0')}/${timestamp.getDate().toString().padStart(2, '0')}, ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
-          }
-        }
-
-        const scoreObj = { score, timestamp };
-        const scoreKey = `${score}-${timestamp}`;
-
-        if (uniqueScores[scoreKey]) {
-          return;
-        }
-        uniqueScores[scoreKey] = true;
-
-        const li = document.createElement('li');
-        li.textContent = `${rank}. Score: ${score} - Timestamp: ${timestamp}`;
-        leaderboardList.appendChild(li);
-
-        rank++;
+        allScores.push({ score, timestamp });
       });
+    });
+
+    allScores.sort((a, b) => b.score - a.score).slice(0, 5).forEach((scoreData) => {
+      let timestamp = scoreData.timestamp;
+      if (!timestamp) {
+        timestamp = 'N/A';
+      } else {
+        timestamp = parseInt(timestamp);
+        if (isNaN(timestamp)) {
+          timestamp = 'Invalid Timestamp';
+        } else {
+          timestamp = new Date(timestamp);
+          timestamp = `${timestamp.getFullYear()}/${(timestamp.getMonth() + 1).toString().padStart(2, '0')}/${timestamp.getDate().toString().padStart(2, '0')}, ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+        }
+      }
+
+      const scoreObj = { score: scoreData.score, timestamp };
+      const scoreKey = `${scoreData.score}-${timestamp}`;
+
+      if (uniqueScores.find((entry) => entry === scoreKey)) {
+        return;
+      }
+      uniqueScores.push(scoreKey);
+
+      const li = document.createElement('li');
+      li.textContent = `${rank}. Score: ${scoreData.score} - Timestamp: ${timestamp}`;
+      leaderboardList.appendChild(li);
+
+      rank++;
     });
   });
 }
-
 
 
 
