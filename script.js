@@ -335,9 +335,14 @@ function saveScore(score) {
       const userId = userCredential.user.uid;
       const scoresRef = firebase.database().ref('leaderboard/' + userId);
 
-      // Add a timestamp property to the score object
-   const timestamp = new Date().getTime();
-const scoreObj = { score: score, timestamp: timestamp };
+      // Add a formatted timestamp property to the score object
+      const timestamp = new Date();
+      const formattedTimestamp = timestamp.getFullYear() + '/' +
+                                 ('0' + (timestamp.getMonth() + 1)).slice(-2) + '/' +
+                                 ('0' + timestamp.getDate()).slice(-2) + ', ' +
+                                 ('0' + timestamp.getHours()).slice(-2) + ':' +
+                                 ('0' + timestamp.getMinutes()).slice(-2);
+      const scoreObj = { score: score, timestamp: formattedTimestamp };
 
       scoresRef.push(scoreObj).then(() => {
         showLeaderboard();
@@ -347,6 +352,7 @@ const scoreObj = { score: score, timestamp: timestamp };
       console.error('Error signing in anonymously:', error);
     });
 }
+
 
 
 function showLeaderboard() {
@@ -373,9 +379,11 @@ function showLeaderboard() {
 
       const li = document.createElement('li');
 
-      // Display the score and timestamp
-      const formattedTime = new Date(timestamp).toLocaleString();
-      li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
+     // Display the score and timestamp
+const formattedTime = new Date(timestamp).toLocaleString();
+const formattedTimestamp = formattedTime.replace(',', '');
+li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
+
       leaderboardList.appendChild(li);
 
       rank++; // Increment the rank counter
