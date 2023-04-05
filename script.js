@@ -436,6 +436,11 @@ funnyModeButton.addEventListener("click", () => {
   funnyModeButton.textContent = funnyMode ? "Disable Funny Mode" : "Enable Funny Mode";
 });
 
+const showLeaderboardButton = document.getElementById("show-leaderboard");
+showLeaderboardButton.addEventListener("click", () => {
+  showLeaderboard();
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
