@@ -443,11 +443,11 @@ document.addEventListener("DOMContentLoaded", () => {
     new Promise(resolve => bombImg.addEventListener('load', resolve))
   ]).then(() => {
     startButton.addEventListener("click", () => {
-  startMenu.style.display = "none";
-  instructions.style.display = "none"; // Add this line to hide instructions
-  reset();
-  gameLoop();
-});
+      startMenu.style.display = "none";
+      instructions.style.display = "none"; // Add this line to hide instructions
+      reset();
+      gameLoop();
+    });
 
     // Other event listeners
     document.addEventListener("keydown", handleInput);
@@ -455,8 +455,7 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.addEventListener('touchmove', handleTouchMove, false);
     canvas.addEventListener('touchend', handleTouchEnd, false);
     document.getElementById('show-leaderboard').addEventListener('click', showLeaderboard);
-document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
- 
+    document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
     restartButton.addEventListener("click", () => {
       gameOver.style.display = "none";
@@ -469,4 +468,5 @@ document.getElementById('leaderboard-close').addEventListener('click', hideLeade
     }, { passive: false });
   });
 });
+
 
