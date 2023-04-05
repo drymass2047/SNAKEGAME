@@ -188,8 +188,9 @@ function checkGameOver() {
   if (isGameOver) {
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
-    saveScore(scoreValue); 
+   
   }
+    return isGameOver;
 }
 
 
@@ -201,7 +202,6 @@ function handleCollisionWithBomb() {
       isGameOver = true;
       gameOver.style.display = "block";
       finalScore.textContent = scoreValue;
-      saveScore(scoreValue); 
       break;
     }
     
@@ -262,7 +262,11 @@ function drawLevelAndDuration() {
 // Updated gameLoop function
 function gameLoop() {
   // Call the checkGameOver function at the beginning of the gameLoop function
-  checkGameOver();
+  if (checkGameOver()) {
+    handleCollisionWithBomb();
+    saveScore(scoreValue);
+    return;
+  }
 
   if (isGameOver) {
     return;
