@@ -227,6 +227,9 @@ function getNumberOfBombs() {
 }
 // Updated gameLoop function
 function gameLoop() {
+  // Call the checkGameOver function at the beginning of the gameLoop function
+  checkGameOver();
+
   if (isGameOver) {
     return;
   }
@@ -265,9 +268,6 @@ function gameLoop() {
   snake.y = head.y;
 
   drawScore();
-
-  // Call the checkGameOver function at the end of the gameLoop function
-  checkGameOver();
 
   // Add this line to call the gameLoop function again
   setTimeout(gameLoop, getGameSpeed());
