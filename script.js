@@ -346,6 +346,7 @@ function saveScore(score) {
         // Otherwise, update the user's score on the leaderboard
         const timestamp = new Date().getTime();
         const scoreObj = { score: score, timestamp: timestamp };
+         console.log('Score:', score);
         scoresRef.set(scoreObj).then(() => {
           showLeaderboard();
         });
