@@ -56,12 +56,13 @@ let bomb = {
 };
 
 function showInstructions() {
-  const instructionsContainer = document.getElementById("instructions-container");
+  const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
 }
 
-const instructionsButton = document.getElementById("instructions");
+const instructionsButton = document.getElementById("show-instructions-button");
 instructionsButton.addEventListener("click", showInstructions);
+
 
 
 function clearCanvas() {
