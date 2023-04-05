@@ -356,26 +356,38 @@ function showLeaderboard() {
   const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(10);
 
   let rank = 1; // Add a counter to keep track of the rank
+  let uniqueScores = []; // Add an array to keep track of unique score and timestamp combinations
   scoresRef.once('value', (snapshot) => {
     snapshot.forEach((userSnapshot) => {
-      const childData = userSnapshot.val();
-      const li = document.createElement('li');
+      userSnapshot.forEach((childSnapshot) => {
+        const childData = childSnapshot.val();
 
-      // Display the score and timestamp
-      const score = childData.score;
-      const timestamp = childData.timestamp;
-      const formattedTime = new Date(timestamp).toLocaleString();
-      li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
-      leaderboardList.appendChild(li);
+        // Check if the score and timestamp combination has already been added to the leaderboard
+        const score = childData.score;
+        const timestamp = childData.timestamp;
+        const scoreObj = {score, timestamp};
+        if (uniqueScores.some(obj => JSON.stringify(obj) === JSON.stringify(scoreObj))) {
+          return; // Skip this score if it has already been added
+        }
+        uniqueScores.push(scoreObj); // Add this score to the array of unique scores
 
-      rank++; // Increment the rank counter
+        const li = document.createElement('li');
 
-      if (rank > 5) { // Stop adding scores to the leaderboard after 5
-        return;
-      }
+        // Display the score and timestamp
+        const formattedTime = new Date(timestamp).toLocaleString();
+        li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
+        leaderboardList.appendChild(li);
+
+        rank++; // Increment the rank counter
+
+        if (rank > 5) { // Stop adding scores to the leaderboard after 5
+          return;
+        }
+      });
     });
   });
 }
+
 
 
 
