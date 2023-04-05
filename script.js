@@ -13,6 +13,7 @@ let scoreValue = 0;
 let currentGameLoop;
 let foodImg = new Image();
 foodImg.src = "apple.png";
+let funnyMode = false;
 
 let bombImg = new Image();
 bombImg.src = "bomb.png";
@@ -141,13 +142,21 @@ function handleInput(event) {
 
 function checkGameOver() {
   const head = snake.body[0];
-  const hitLeftWall = head.x < 0;
-  const hitRightWall = head.x > canvas.width - snakeSize;
-  const hitTopWall = head.y < 0;
-  const hitBottomWall = head.y > canvas.height - snakeSize;
 
-  if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
-    isGameOver = true;
+  if (funnyMode) {
+    if (head.x < 0) head.x = canvas.width - snakeSize;
+    if (head.x > canvas.width - snakeSize) head.x = 0;
+    if (head.y < 0) head.y = canvas.height - snakeSize;
+    if (head.y > canvas.height - snakeSize) head.y = 0;
+  } else {
+    const hitLeftWall = head.x < 0;
+    const hitRightWall = head.x > canvas.width - snakeSize;
+    const hitTopWall = head.y < 0;
+    const hitBottomWall = head.y > canvas.height - snakeSize;
+
+    if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
+      isGameOver = true;
+    }
   }
 
   for (let i = 1; i < snake.body.length; i++) {
@@ -162,6 +171,7 @@ function checkGameOver() {
     finalScore.textContent = scoreValue;
   }
 }
+
 
 
 function handleCollisionWithBomb() {
@@ -316,6 +326,15 @@ function handleTouchEnd(e) {
     }
   }
 }
+
+const funnyModeButton = document.getElementById("funny-mode-button");
+
+funnyModeButton.addEventListener("click", () => {
+  funnyMode = !funnyMode;
+  funnyModeButton.textContent = funnyMode ? "Disable Funny Mode" : "Enable Funny Mode";
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
   Promise.all([
     new Promise(resolve => foodImg.addEventListener('load', resolve)),
