@@ -4,13 +4,13 @@
 <head>
   <link rel="stylesheet" href="style.css">
   <!-- Add this line for the core Firebase library -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 
-<!-- Add this line for the Firebase Authentication library -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <!-- Add this line for the Firebase Authentication library -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
-<!-- Add this line for the Firebase Realtime Database library -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <!-- Add this line for the Firebase Realtime Database library -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +40,7 @@
       border: 1px solid black;
       z-index: 5;
       text-align: left;
+      display: none;
     }
     #start-menu {
       position: fixed;
@@ -54,17 +55,12 @@
   <div class="container">
     <div id="instructions">
       <h2>Instructions:</h2>
-      <ul>
-        <li>Use the arrow keys or swipe on the screen to control the snake.</li>
-        <li>Eat the apples to grow and increase your score.</li>
-        <li>Avoid colliding with the bombs and the walls, or it's game over!</li>
-        <li>Don't eat your own tail.</li>
-        <li>When your score reaches 100, the game speed will increase by 1.5 times, and an additional bomb will appear. When your score reaches 200, the game speed will double, and one more bomb will be added.</li>
-      </ul>
+      <p>Use the arrow keys or swipe on the screen to control the snake. Eat the apples to grow and increase your score. Avoid colliding with the bombs and the walls, or it's game over! Don't eat your own tail. When your score reaches 100, the game speed will increase by 1.5 times, and an additional bomb will appear. When your score reaches 200, the game speed will double, and one more bomb will be added.</p>
     </div>
     <div id="start-menu">
       <button id="start-button">Start Game</button>
       <button id="funny-mode-button">Toggle Funny Mode</button>
+      <button id="show-instructions-button">Show Instructions</button>
     </div>
     
     <canvas id="canvas" width="400" height="400" style="border: 1px solid #000;"></canvas>
@@ -76,19 +72,17 @@
       
     </div>  
   </div>
-    <div id="leaderboard" style="display:none;">
-  <h2>Leaderboard</h2>
-  <ol id="leaderboard-list"></ol>
-  <button id="leaderboard-close">Close</button>
-</div>
-<button id="show-leaderboard">Show Leaderboard</button>
+  
+  <div id="leaderboard" style="display:none;">
+    <h2>Leaderboard</h2>
+    <ol id="leaderboard-list"></ol>
+    <button id="leaderboard-close">Close</button>
+  </div>
+  <button id="show-leaderboard">Show Leaderboard</button>
 
   <script src="script.js"></script>
   <script>
     // JavaScript code that accesses the final-score element
-    var finalScoreElement = document.getElementById("final-score");
+    const finalScoreElement = document.getElementById("final-score");
     console.log(finalScoreElement.innerHTML);
-  </script>
-</body>
-</html>
-
+</script>
