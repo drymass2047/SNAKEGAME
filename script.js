@@ -384,10 +384,10 @@ function showLeaderboard() {
       }
 
       // Check if the score and timestamp combination has already been added to the leaderboard
-      const scoreObj = {score, timestamp};
-      if (uniqueScores.some(obj => JSON.stringify(obj) === JSON.stringify(scoreObj))) {
-        return; // Skip this score if it has already been added
-      }
+     const scoreObj = {score, timestamp};
+if (uniqueScores.some(obj => obj.score === scoreObj.score && obj.timestamp === scoreObj.timestamp)) {
+  return; // Skip this score if it has already been added
+}
       uniqueScores.push(scoreObj); // Add this score to the array of unique scores
 
       const li = document.createElement('li');
