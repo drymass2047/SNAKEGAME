@@ -55,7 +55,32 @@ button {
 button:hover {
   background-color: #45a049 !important;
 }
+#instructions {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  z-index: 5;
+  text-align: left;
+  display: none;
+}
 
+.instructions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.close-instructions {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 @media only screen and (max-width: 600px) {
   /* Adjust the font size and padding of the instructions */
