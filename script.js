@@ -352,23 +352,21 @@ function showLeaderboard() {
   const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(10);
 
   scoresRef.once('value', (snapshot) => {
-    // Reverse the order of the scores, as limitToLast will give the lowest scores first
-    const scores = [];
-    snapshot.forEach((childSnapshot) => {
-      const score = childSnapshot.child("score").val();
-      scores.unshift(score);
+    let rank = snapshot.numChildren();
+    snapshot.forEach((userSnapshot) => {
+      userSnapshot.forEach((childSnapshot) => {
+        const childData = childSnapshot.val();
+        const li = document.createElement('li');
+
+        // Make sure to include both the username and the score
+        li.textContent = `${rank}. ${userSnapshot.key} - ${childData.score}`;
+        leaderboardList.appendChild(li);
+        rank--;
+      });
     });
-
-    // Create and append the list items for each score
-    for (const score of scores) {
-      const listItem = document.createElement('li');
-      listItem.textContent = score;
-      leaderboardList.appendChild(listItem);
-    }
-
-    document.getElementById('leaderboard').style.display = 'block';
   });
 }
+
 
 
 function hideLeaderboard() {
