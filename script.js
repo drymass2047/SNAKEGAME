@@ -29,7 +29,7 @@ let funnyMode = false;
 let level = 1;
 let gameDuration = 0;
 let startTime = new Date().getTime();
-
+let bombs = [];
 let bombImg = new Image();
 bombImg.src = "bomb.png";
 
@@ -105,6 +105,7 @@ function drawBomb() {
     ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
   }
 }
+
 
 function drawScore() {
   ctx.font = "16px Arial";
@@ -335,8 +336,8 @@ function saveScore(score) {
       const scoresRef = firebase.database().ref('leaderboard/' + userId);
 
       // Add a timestamp property to the score object
-      const timestamp = firebase.database.ServerValue.TIMESTAMP;
-      const scoreObj = { score: score, timestamp: timestamp };
+   const timestamp = new Date().getTime();
+const scoreObj = { score: score, timestamp: timestamp };
 
       scoresRef.push(scoreObj).then(() => {
         showLeaderboard();
