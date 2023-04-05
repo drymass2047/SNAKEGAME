@@ -353,8 +353,6 @@ function saveScore(score) {
     });
 }
 
-
-
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
@@ -368,7 +366,7 @@ function showLeaderboard() {
     snapshot.forEach((userSnapshot) => {
       const childData = userSnapshot.val();
       const score = childData.score;
-      const timestamp = childData.timestamp;
+      const timestamp = parseInt(childData.timestamp); // Parse timestamp string into number
 
       // Check if the score and timestamp combination has already been added to the leaderboard
       const scoreObj = {score, timestamp};
@@ -379,11 +377,11 @@ function showLeaderboard() {
 
       const li = document.createElement('li');
 
-     // Display the score and timestamp
-const date = new Date(timestamp);
-const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-const formattedTimestamp = formattedTime.replace(',', '');
-li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
+      // Display the score and timestamp
+      const date = new Date(timestamp);
+      const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+      const formattedTimestamp = formattedTime.replace(',', '');
+      li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
 
       leaderboardList.appendChild(li);
 
@@ -395,10 +393,6 @@ li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
     });
   });
 }
-
-
-
-
 
 
 
