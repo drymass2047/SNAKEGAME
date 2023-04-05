@@ -348,19 +348,28 @@ function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
 
-  const scoresRef = firebase.database().ref('leaderboard').orderByKey().limitToLast(10);
+  // Change the orderByKey() to orderByChild('score') and use limitToLast to get the top 10 scores
+  const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(10);
 
-  
   scoresRef.once('value', (snapshot) => {
+    // Reverse the order of the scores, as limitToLast will give the lowest scores first
+    const scores = [];
     snapshot.forEach((childSnapshot) => {
-     const score = childSnapshot.child("score").val();
+      const score = childSnapshot.child("score").val();
+      scores.unshift(score);
+    });
+
+    // Create and append the list items for each score
+    for (const score of scores) {
       const listItem = document.createElement('li');
       listItem.textContent = score;
       leaderboardList.appendChild(listItem);
-    });
+    }
+
     document.getElementById('leaderboard').style.display = 'block';
   });
 }
+
 
 function hideLeaderboard() {
   document.getElementById('leaderboard').style.display = 'none';
