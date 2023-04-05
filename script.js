@@ -7,6 +7,9 @@ const gameOver = document.getElementById("game-over");
 const finalScore = document.getElementById("final-score");
 const restartButton = document.getElementById("restart-button");
 const instructions = document.getElementById("instructions");
+
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyD0Mnylp25zOG_pUYt_gYm9Mw1a7pJGgjY",
   authDomain: "snack-2eea1.firebaseapp.com",
@@ -51,6 +54,15 @@ let bomb = {
   x: 0,
   y: 0,
 };
+
+function showInstructions() {
+  const instructionsContainer = document.getElementById("instructions-container");
+  instructionsContainer.style.display = "block";
+}
+
+const instructionsButton = document.getElementById("instructions");
+instructionsButton.addEventListener("click", showInstructions);
+
 
 function clearCanvas() {
   ctx.fillStyle = "#1b4d30"; // Dark green color for the background
