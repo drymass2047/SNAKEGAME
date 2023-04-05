@@ -359,34 +359,33 @@ function showLeaderboard() {
   let uniqueScores = []; // Add an array to keep track of unique score and timestamp combinations
   scoresRef.once('value', (snapshot) => {
     snapshot.forEach((userSnapshot) => {
-      userSnapshot.forEach((childSnapshot) => {
-        const childData = childSnapshot.val();
+      const childData = userSnapshot.val();
+      const score = childData.score;
+      const timestamp = childData.timestamp;
 
-        // Check if the score and timestamp combination has already been added to the leaderboard
-        const score = childData.score;
-        const timestamp = childData.timestamp;
-        const scoreObj = {score, timestamp};
-        if (uniqueScores.some(obj => JSON.stringify(obj) === JSON.stringify(scoreObj))) {
-          return; // Skip this score if it has already been added
-        }
-        uniqueScores.push(scoreObj); // Add this score to the array of unique scores
+      // Check if the score and timestamp combination has already been added to the leaderboard
+      const scoreObj = {score, timestamp};
+      if (uniqueScores.some(obj => JSON.stringify(obj) === JSON.stringify(scoreObj))) {
+        return; // Skip this score if it has already been added
+      }
+      uniqueScores.push(scoreObj); // Add this score to the array of unique scores
 
-        const li = document.createElement('li');
+      const li = document.createElement('li');
 
-        // Display the score and timestamp
-        const formattedTime = new Date(timestamp).toLocaleString();
-        li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
-        leaderboardList.appendChild(li);
+      // Display the score and timestamp
+      const formattedTime = new Date(timestamp).toLocaleString();
+      li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
+      leaderboardList.appendChild(li);
 
-        rank++; // Increment the rank counter
+      rank++; // Increment the rank counter
 
-        if (rank > 5) { // Stop adding scores to the leaderboard after 5
-          return;
-        }
-      });
+      if (rank > 5) { // Stop adding scores to the leaderboard after 5
+        return;
+      }
     });
   });
 }
+
 
 
 
