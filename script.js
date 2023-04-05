@@ -367,46 +367,44 @@ function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
 
-  const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(10);
+  const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(5);
 
   scoresRef.once('value', (snapshot) => {
     let rank = 1;
-    const uniqueScores = {}; // Use an object to keep track of unique score and timestamp combinations
+    const uniqueScores = {};
 
     snapshot.forEach((userSnapshot) => {
-      const childData = userSnapshot.val();
-      const score = childData.score;
-      let timestamp = childData.timestamp;
+      userSnapshot.forEach((scoreSnapshot) => {
+        const childData = scoreSnapshot.val();
+        const score = childData.score;
+        let timestamp = childData.timestamp;
 
-      if (!timestamp) {
-        timestamp = 'N/A';
-      } else {
-        timestamp = parseInt(timestamp);
-        if (isNaN(timestamp)) {
-          timestamp = 'Invalid Timestamp';
+        if (!timestamp) {
+          timestamp = 'N/A';
         } else {
-          timestamp = new Date(timestamp);
-          timestamp = `${timestamp.getFullYear()}/${(timestamp.getMonth() + 1).toString().padStart(2, '0')}/${timestamp.getDate().toString().padStart(2, '0')}, ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+          timestamp = parseInt(timestamp);
+          if (isNaN(timestamp)) {
+            timestamp = 'Invalid Timestamp';
+          } else {
+            timestamp = new Date(timestamp);
+            timestamp = `${timestamp.getFullYear()}/${(timestamp.getMonth() + 1).toString().padStart(2, '0')}/${timestamp.getDate().toString().padStart(2, '0')}, ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+          }
         }
-      }
 
-      const scoreObj = { score, timestamp };
-      const scoreKey = `${score}-${timestamp}`;
+        const scoreObj = { score, timestamp };
+        const scoreKey = `${score}-${timestamp}`;
 
-      // Check if the score and timestamp combination has already been added to the leaderboard
-      if (uniqueScores[scoreKey]) {
-        return; // Skip this score if it has already been added
-      }
-      uniqueScores[scoreKey] = true; // Add this score to the object of unique scores
+        if (uniqueScores[scoreKey]) {
+          return;
+        }
+        uniqueScores[scoreKey] = true;
 
-      const li = document.createElement('li');
-      li.textContent = `${rank}. Score: ${score} - Timestamp: ${timestamp}`;
-      leaderboardList.appendChild(li);
+        const li = document.createElement('li');
+        li.textContent = `${rank}. Score: ${score} - Timestamp: ${timestamp}`;
+        leaderboardList.appendChild(li);
 
-      rank++;
-      if (rank > 5) { // Stop adding scores to the leaderboard after 5
-        return;
-      }
+        rank++;
+      });
     });
   });
 }
