@@ -55,6 +55,7 @@ button {
 button:hover {
   background-color: #45a049 !important;
 }
+/* Updated styles for the instructions box */
 #instructions {
   position: fixed;
   top: 50%;
@@ -63,31 +64,28 @@ button:hover {
   background-color: white;
   padding: 20px;
   border: 1px solid black;
-  z-index: 5;
+  z-index: 9999; /* Make sure the instructions box is always on top */
   text-align: left;
   display: none;
+  max-width: 80%; /* Make sure the box is not wider than the screen */
+  overflow-y: auto; /* Add a scroll bar if the content is too long */
 }
 
-.instructions-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.close-instructions {
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
+/* Updated styles for the X button */
+#close-instructions-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5em;
   cursor: pointer;
+  z-index: 10000; /* Make sure the X button is always on top of everything */
 }
+
 
 @media only screen and (max-width: 600px) {
-  /* Adjust the font size and padding of the instructions */
-  #instructions {
-     z-index: 10;
+  
    
-  }
+ 
   /* Adjust the position and size of the start button */
   #start-menu {
     top: 40%;
