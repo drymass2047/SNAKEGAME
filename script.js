@@ -244,7 +244,7 @@ function drawLevelAndDuration() {
 function gameLoop() {
   // Call the checkGameOver function at the beginning of the gameLoop function
   if (checkGameOver()) {
-    handleCollisionWithBomb();
+    checkCollisionWithBomb(); // Replace handleCollisionWithBomb with checkCollisionWithBomb
     saveScore(scoreValue);
     return;
   }
@@ -293,6 +293,17 @@ function gameLoop() {
       generateBombs(getNumberOfBombs());
     }
   }
+
+  function checkCollisionWithBomb() {
+  const head = snake.body[0];
+
+  for (const bomb of bombs) {
+    if (head.x === bomb.x && head.y === bomb.y) {
+      isGameOver = true;
+      break;
+    }
+  }
+}
 
   // Check if the snake collided with the bomb
   handleCollisionWithBomb();
