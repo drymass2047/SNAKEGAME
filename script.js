@@ -58,7 +58,17 @@ let bomb = {
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
-  instructionsContainer.style.zIndex = "10";
+
+  // Create and append the X button to the instructions box
+  const closeButton = document.createElement("span");
+  closeButton.id = "close-instructions-button";
+  closeButton.innerHTML = "&times;";
+  instructionsContainer.appendChild(closeButton);
+
+  // Add the click event listener for the X button
+  closeButton.addEventListener("click", function() {
+    instructionsContainer.style.display = "none";
+  });
 
   // Adjust the position of the button for mobile devices
   const isMobile = window.matchMedia("only screen and (max-width: 600px)").matches;
@@ -70,6 +80,7 @@ function showInstructions() {
     button.style.top = `${newButtonTop}px`;
   }
 }
+
 
 function closeInstructions() {
   const instructionsContainer = document.getElementById("instructions");
