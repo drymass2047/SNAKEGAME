@@ -209,6 +209,8 @@ function reset() {
   };
   generateFood();
   generateBombs(getNumberOfBombs());
+  startTime = new Date().getTime(); // Add this line to reset the start time when the game restarts
+
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
