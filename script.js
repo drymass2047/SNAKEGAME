@@ -60,7 +60,7 @@ function showInstructions() {
   instructionsContainer.style.display = "block";
 
   // Adjust the position of the button for mobile devices
-  const isMobile = window.matchMedia("only screen and (max-width: 600px)").matches;
+  const isMobile = window.matchMedia("only screen and (max-device-width: 600px)").matches;
   if (isMobile) {
     const button = document.getElementById("show-instructions-button");
     const buttonRect = button.getBoundingClientRect();
@@ -72,6 +72,7 @@ function showInstructions() {
 
 const showInstructionsButton = document.getElementById("show-instructions-button");
 showInstructionsButton.addEventListener("click", showInstructions);
+
 
 function clearCanvas() {
   ctx.fillStyle = "#1b4d30"; // Dark green color for the background
