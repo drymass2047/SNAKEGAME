@@ -367,16 +367,17 @@ function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
 
-  // Query the scores in descending order based on the score value
   const scoresRef = firebase.database().ref('leaderboard').orderByChild('score').limitToLast(10);
 
-  let rank = 1; // Add a counter to keep track of the rank
-  let uniqueScores = []; // Add an array to keep track of unique score and timestamp combinations
   scoresRef.once('value', (snapshot) => {
+    let rank = 1;
+    const uniqueScores = {}; // Use an object to keep track of unique score and timestamp combinations
+
     snapshot.forEach((userSnapshot) => {
       const childData = userSnapshot.val();
       const score = childData.score;
-      let timestamp = childData.timestamp; // Parse timestamp string into number
+      let timestamp = childData.timestamp;
+
       if (!timestamp) {
         timestamp = 'N/A';
       } else {
@@ -389,28 +390,27 @@ function showLeaderboard() {
         }
       }
 
+      const scoreObj = { score, timestamp };
+      const scoreKey = `${score}-${timestamp}`;
+
       // Check if the score and timestamp combination has already been added to the leaderboard
-     const scoreObj = {score, timestamp};
-if (uniqueScores.some(obj => obj.score === scoreObj.score && obj.timestamp === scoreObj.timestamp)) {
-  return; // Skip this score if it has already been added
-}
-      uniqueScores.push(scoreObj); // Add this score to the array of unique scores
+      if (uniqueScores[scoreKey]) {
+        return; // Skip this score if it has already been added
+      }
+      uniqueScores[scoreKey] = true; // Add this score to the object of unique scores
 
       const li = document.createElement('li');
-
-      // Display the score and timestamp
       li.textContent = `${rank}. Score: ${score} - Timestamp: ${timestamp}`;
-
       leaderboardList.appendChild(li);
 
-      rank++; // Increment the rank counter
-
+      rank++;
       if (rank > 5) { // Stop adding scores to the leaderboard after 5
         return;
       }
     });
   });
 }
+
 
 
 
