@@ -329,14 +329,20 @@ function gameLoop() {
 }
 
 function saveScore(score) {
-  const userId = firebase.auth().currentUser.uid;
-  const scoresRef = firebase.database().ref('leaderboard/' + userId);
-  
-  scoresRef.push({score: score}).then(() => {
-  showLeaderboard();
-});
+  firebase.auth().signInAnonymously()
+    .then((userCredential) => {
+      const userId = userCredential.user.uid;
+      const scoresRef = firebase.database().ref('leaderboard/' + userId);
 
+      scoresRef.push({score: score}).then(() => {
+        showLeaderboard();
+      });
+    })
+    .catch((error) => {
+      console.error('Error signing in anonymously:', error);
+    });
 }
+
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
