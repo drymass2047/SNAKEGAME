@@ -12,7 +12,6 @@ let isGameOver = false;
 let scoreValue = 0;
 let currentGameLoop;
 let foodImg = new Image();
-let bombs = [];
 foodImg.src = "apple.png";
 
 let bombImg = new Image();
@@ -161,9 +160,6 @@ function checkGameOver() {
   if (isGameOver) {
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
-    // Save the user's score
-    saveScore(scoreValue);
-    displayScores();
   }
 }
 
@@ -200,26 +196,11 @@ function reset() {
   };
   generateFood();
   generateBombs(getNumberOfBombs());
-   // Call displayScores to update the list of scores
-  displayScores();
-  clearInterval(currentGameLoop);
-console.log("reset called");
-
 }
 function generateBombs(numberOfBombs) {
   bombs = [];
   for (let i = 0; i < numberOfBombs; i++) {
-    let isSafe = false;
-    while (!isSafe) {
-      generateBomb();
-      isSafe = true;
-      for (const segment of snake.body) {
-        if (Math.abs(bomb.x - segment.x) < snakeSize && Math.abs(bomb.y - segment.y) < snakeSize) {
-          isSafe = false;
-          break;
-        }
-      }
-    }
+    generateSafeBomb();
     bombs.push({ x: bomb.x, y: bomb.y });
   }
 }
@@ -234,64 +215,6 @@ function getNumberOfBombs() {
     return 1;
   }
 }
-function saveScore(score) {
-  // Retrieve the existing scores from localStorage
-  let scores = localStorage.getItem('snake-scores');
-
-  // If no scores exist, create an empty array
-  if (!scores) {
-    scores = [];
-  } else {
-    // Otherwise, parse the scores string into an array
-    scores = JSON.parse(scores);
-
-    // Make sure scores is an array
-    if (!Array.isArray(scores)) {
-      scores = [];
-    }
-  }
-
-  // Add the new score to the array
-  scores.push(score);
-
-  // Sort the scores in descending order
-  scores.sort((a, b) => b - a);
-
-  // Truncate the scores to the last 5 entries
-  scores = scores.slice(0, 5);
-
-  // Save the scores back to localStorage
-  localStorage.setItem('snake-scores', JSON.stringify(scores));
-}
-
-
-function displayScores() {
-  // Retrieve the scores from localStorage
-  console.log("finalScore", finalScore);
-  let scores = localStorage.getItem('snake-scores');
-
-  // If no scores exist, display a message
-  if (!scores) {
-    finalScore.textContent = "No scores yet!";
-    return;
-  }
-
-  // Otherwise, parse the scores string into an array
-  scores = JSON.parse(scores);
-
-  // Create a list of score elements
-  const scoreList = document.createElement('ul');
-  scoreList.className = 'score-list';
-  for (const score of scores) {
-    const scoreItem = document.createElement('li');
-    scoreItem.textContent = score;
-    scoreList.appendChild(scoreItem);
-  }
-
-  // Replace the final score element with the score list
-  finalScore.parentNode.replaceChild(scoreList, finalScore);
-}
-
 // Updated gameLoop function
 function gameLoop() {
   if (isGameOver) {
