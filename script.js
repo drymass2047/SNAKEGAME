@@ -309,6 +309,8 @@ function gameLoop() {
     }
   }
 
+ // Call the saveScore function with the updated scoreValue
+  saveScore(scoreValue);
   // Check if the snake collided with the bomb
   handleCollisionWithBomb();
 
