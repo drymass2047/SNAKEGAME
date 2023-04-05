@@ -227,9 +227,6 @@ function getNumberOfBombs() {
 }
 // Updated gameLoop function
 function gameLoop() {
-  // Call the checkGameOver function at the beginning of the gameLoop function
-  checkGameOver();
-
   if (isGameOver) {
     return;
   }
@@ -238,6 +235,15 @@ function gameLoop() {
 
   // Move the snake
   const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
+
+  // Update the snake's position based on the funnyMode
+  if (funnyMode) {
+    if (head.x < 0) head.x = canvas.width - snakeSize;
+    if (head.x > canvas.width - snakeSize) head.x = 0;
+    if (head.y < 0) head.y = canvas.height - snakeSize;
+    if (head.y > canvas.height - snakeSize) head.y = 0;
+  }
+
   snake.body.unshift(head);
 
   if (snake.body.length > snake.maxBodySize) snake.body.pop();
@@ -269,9 +275,13 @@ function gameLoop() {
 
   drawScore();
 
+  // Call the checkGameOver function
+  checkGameOver();
+
   // Add this line to call the gameLoop function again
   setTimeout(gameLoop, getGameSpeed());
 }
+
 
 
 
