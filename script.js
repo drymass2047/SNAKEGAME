@@ -337,14 +337,9 @@ function saveScore(score) {
       const userId = userCredential.user.uid;
       const scoresRef = firebase.database().ref('leaderboard/' + userId);
 
-      // Add a formatted timestamp property to the score object
-      const timestamp = new Date();
-      const formattedTimestamp = timestamp.getFullYear() + '/' +
-                                 ('0' + (timestamp.getMonth() + 1)).slice(-2) + '/' +
-                                 ('0' + timestamp.getDate()).slice(-2) + ', ' +
-                                 ('0' + timestamp.getHours()).slice(-2) + ':' +
-                                 ('0' + timestamp.getMinutes()).slice(-2);
-      const scoreObj = { score: score, timestamp: formattedTimestamp };
+      // Save the timestamp as a Unix timestamp
+      const timestamp = new Date().getTime();
+      const scoreObj = { score: score, timestamp: timestamp };
 
       scoresRef.push(scoreObj).then(() => {
         showLeaderboard();
@@ -354,6 +349,7 @@ function saveScore(score) {
       console.error('Error signing in anonymously:', error);
     });
 }
+
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
@@ -368,7 +364,7 @@ function showLeaderboard() {
     snapshot.forEach((userSnapshot) => {
       const childData = userSnapshot.val();
       const score = childData.score;
-      const timestamp = parseInt(childData.timestamp); // Parse timestamp string into number
+      const timestamp = childData.timestamp;
 
       // Check if the score and timestamp combination has already been added to the leaderboard
       const scoreObj = {score, timestamp};
@@ -381,8 +377,7 @@ function showLeaderboard() {
 
       // Display the score and timestamp
       const date = new Date(timestamp);
-      const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}, ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-      const formattedTimestamp = formattedTime.replace(',', '');
+      const formattedTimestamp = date.toLocaleString();
       li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTimestamp}`;
 
       leaderboardList.appendChild(li);
