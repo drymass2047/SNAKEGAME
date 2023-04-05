@@ -358,26 +358,25 @@ function showLeaderboard() {
   let rank = 1; // Add a counter to keep track of the rank
   scoresRef.once('value', (snapshot) => {
     snapshot.forEach((userSnapshot) => {
-      userSnapshot.forEach((childSnapshot) => {
-        const childData = childSnapshot.val();
-        const li = document.createElement('li');
+      const childData = userSnapshot.val();
+      const li = document.createElement('li');
 
-        // Display the score and timestamp
-        const score = childData.score;
-        const timestamp = childData.timestamp;
-        const formattedTime = new Date(timestamp).toLocaleString();
-        li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
-        leaderboardList.appendChild(li);
+      // Display the score and timestamp
+      const score = childData.score;
+      const timestamp = childData.timestamp;
+      const formattedTime = new Date(timestamp).toLocaleString();
+      li.textContent = `${rank}. Score: ${score} - Timestamp: ${formattedTime}`;
+      leaderboardList.appendChild(li);
 
-        rank++; // Increment the rank counter
+      rank++; // Increment the rank counter
 
-        if (rank > 5) { // Stop adding scores to the leaderboard after 5
-          return;
-        }
-      });
+      if (rank > 5) { // Stop adding scores to the leaderboard after 5
+        return;
+      }
     });
   });
 }
+
 
 
 
