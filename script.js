@@ -58,14 +58,17 @@ let bomb = {
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
+
+  // Adjust the position of the button for mobile devices
+  const isMobile = window.matchMedia("only screen and (max-width: 600px)").matches;
+  if (isMobile) {
+    const button = document.getElementById("show-instructions-button");
+    const buttonRect = button.getBoundingClientRect();
+    const instructionsRect = instructionsContainer.getBoundingClientRect();
+    const newButtonTop = instructionsRect.bottom + 20; // Add 20 pixels of margin
+    button.style.top = `${newButtonTop}px`;
+  }
 }
-
-const instructionsButton = document.getElementById("show-instructions-button");
-instructionsButton.addEventListener("click", showInstructions);
-
-
-
-
 function clearCanvas() {
   ctx.fillStyle = "#1b4d30"; // Dark green color for the background
   ctx.fillRect(0, 0, canvas.width, canvas.height);
