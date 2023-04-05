@@ -332,20 +332,22 @@ function saveScore(score) {
   const userId = firebase.auth().currentUser.uid;
   const scoresRef = firebase.database().ref('leaderboard/' + userId);
   
-  scoresRef.push(score).then(() => {
-    showLeaderboard();
-  });
+  scoresRef.push({score: score}).then(() => {
+  showLeaderboard();
+});
+
 }
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
   leaderboardList.innerHTML = '';
 
-  const scoresRef = firebase.database().ref('leaderboard').orderByValue().limitToLast(10);
+  const scoresRef = firebase.database().ref('leaderboard').orderByKey().limitToLast(10);
+
   
   scoresRef.once('value', (snapshot) => {
     snapshot.forEach((childSnapshot) => {
-      const score = childSnapshot.val();
+     const score = childSnapshot.child("score").val();
       const listItem = document.createElement('li');
       listItem.textContent = score;
       leaderboardList.appendChild(listItem);
