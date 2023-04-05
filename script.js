@@ -330,6 +330,11 @@ function gameLoop() {
 }
 
 function saveScore(score) {
+  if (score === undefined) {
+    console.error('Error: score is undefined');
+    return;
+  }
+  
   firebase.auth().signInAnonymously()
     .then((userCredential) => {
       const userId = userCredential.user.uid;
@@ -343,9 +348,10 @@ function saveScore(score) {
           return;
         }
 
-        // Otherwise, add the user's new score to the leaderboard
+        // Otherwise, update the user's score on the leaderboard
         const timestamp = new Date().getTime();
         const scoreObj = { score: score, timestamp: timestamp };
+        console.log('Score:', score);
         scoresRef.push(scoreObj).then(() => {
           showLeaderboard();
         });
