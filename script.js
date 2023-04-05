@@ -306,7 +306,7 @@ function gameLoop() {
 }
 
   // Check if the snake collided with the bomb
-  handleCollisionWithBomb();
+  checkCollisionWithBomb();
 
   drawSnake();
   drawFood();
