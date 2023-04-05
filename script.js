@@ -335,12 +335,20 @@ function saveScore(score) {
       const userId = userCredential.user.uid;
       const scoresRef = firebase.database().ref('leaderboard/' + userId);
 
-      // Add a formatted timestamp property to the score object
-      const timestamp = new Date().getTime();
-      const scoreObj = { score: score, timestamp: timestamp };
+      scoresRef.once('value', (snapshot) => {
+        const existingScore = snapshot.val();
+        if (existingScore && existingScore.score >= score) {
+          // If the user already has a score on the leaderboard and their new score
+          // is not higher than their existing score, do not update the leaderboard
+          return;
+        }
 
-      scoresRef.push(scoreObj).then(() => {
-        showLeaderboard();
+        // Otherwise, update the user's score on the leaderboard
+        const timestamp = new Date().getTime();
+        const scoreObj = { score: score, timestamp: timestamp };
+        scoresRef.set(scoreObj).then(() => {
+          showLeaderboard();
+        });
       });
     })
     .catch((error) => {
