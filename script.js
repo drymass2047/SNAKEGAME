@@ -401,6 +401,12 @@ function showLeaderboard() {
 }
 
 
+// Add this event listener
+startButton.addEventListener("click", () => {
+  startMenu.style.display = "none";
+  reset();
+  gameLoop();
+});
 
 
 function hideLeaderboard() {
