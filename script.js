@@ -437,7 +437,9 @@ funnyModeButton.addEventListener("click", () => {
 });
 
 const showLeaderboardButton = document.getElementById("show-leaderboard");
+const leaderboard = document.getElementById("leaderboard");
 showLeaderboardButton.addEventListener("click", () => {
+  leaderboard.style.display = leaderboard.style.display === "none" ? "block" : "none";
   showLeaderboard();
 });
 
