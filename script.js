@@ -365,11 +365,11 @@ function saveScore(score) {
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
-  leaderboardList.innerHTML = '';
-
+  
   const scoresRef = firebase.database().ref('leaderboard');
 
   scoresRef.once('value', (snapshot) => {
+    leaderboardList.innerHTML = ''; // Clear the leaderboardList here
     let rank = 1;
     const uniqueScores = [];
     const allScores = [];
@@ -414,6 +414,7 @@ function showLeaderboard() {
     });
   });
 }
+
 
 
 
