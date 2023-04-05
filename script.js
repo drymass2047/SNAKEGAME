@@ -7,6 +7,18 @@ const gameOver = document.getElementById("game-over");
 const finalScore = document.getElementById("final-score");
 const restartButton = document.getElementById("restart-button");
 const instructions = document.getElementById("instructions");
+const firebaseConfig = {
+  apiKey: "AIzaSyD0Mnylp25zOG_pUYt_gYm9Mw1a7pJGgjY",
+  authDomain: "snack-2eea1.firebaseapp.com",
+  databaseURL: "https://snack-2eea1-default-rtdb.firebaseio.com",
+  projectId: "snack-2eea1",
+  storageBucket: "snack-2eea1.appspot.com",
+  messagingSenderId: "748447762728",
+  appId: "1:748447762728:web:5f1e5725d3c1dcb3fce81d"
+};
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 let isGameOver = false;
 let scoreValue = 0;
@@ -159,6 +171,9 @@ function checkGameOver() {
 
     if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
       isGameOver = true;
+      
+   
+      
     }
   }
 
@@ -172,6 +187,7 @@ function checkGameOver() {
   if (isGameOver) {
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
+    saveScore(scoreValue); 
   }
 }
 
@@ -184,8 +200,10 @@ function handleCollisionWithBomb() {
       isGameOver = true;
       gameOver.style.display = "block";
       finalScore.textContent = scoreValue;
+      saveScore(scoreValue); 
       break;
     }
+    
   }
 }
 
@@ -310,6 +328,35 @@ function gameLoop() {
   setTimeout(gameLoop, getGameSpeed());
 }
 
+function saveScore(score) {
+  const userId = firebase.auth().currentUser.uid;
+  const scoresRef = firebase.database().ref('leaderboard/' + userId);
+  
+  scoresRef.push(score).then(() => {
+    showLeaderboard();
+  });
+}
+
+function showLeaderboard() {
+  const leaderboardList = document.getElementById('leaderboard-list');
+  leaderboardList.innerHTML = '';
+
+  const scoresRef = firebase.database().ref('leaderboard').orderByValue().limitToLast(10);
+  
+  scoresRef.once('value', (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      const score = childSnapshot.val();
+      const listItem = document.createElement('li');
+      listItem.textContent = score;
+      leaderboardList.appendChild(listItem);
+    });
+    document.getElementById('leaderboard').style.display = 'block';
+  });
+}
+
+function hideLeaderboard() {
+  document.getElementById('leaderboard').style.display = 'none';
+}
 
 
 
@@ -391,6 +438,9 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     canvas.addEventListener('touchend', handleTouchEnd, false);
+    document.getElementById('show-leaderboard').addEventListener('click', showLeaderboard);
+document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
+ 
 
     restartButton.addEventListener("click", () => {
       gameOver.style.display = "none";
