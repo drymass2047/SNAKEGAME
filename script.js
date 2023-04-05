@@ -343,11 +343,10 @@ function saveScore(score) {
           return;
         }
 
-        // Otherwise, update the user's score on the leaderboard
+        // Otherwise, add the user's new score to the leaderboard
         const timestamp = new Date().getTime();
         const scoreObj = { score: score, timestamp: timestamp };
-         console.log('Score:', score);
-        scoresRef.set(scoreObj).then(() => {
+        scoresRef.push(scoreObj).then(() => {
           showLeaderboard();
         });
       });
@@ -356,6 +355,7 @@ function saveScore(score) {
       console.error('Error signing in anonymously:', error);
     });
 }
+
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
