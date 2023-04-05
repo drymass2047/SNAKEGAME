@@ -172,9 +172,6 @@ function checkGameOver() {
 
     if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
       isGameOver = true;
-      
-   
-      
     }
   }
 
@@ -188,24 +185,8 @@ function checkGameOver() {
   if (isGameOver) {
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
-   
   }
-    return isGameOver;
-}
-
-
-
-function handleCollisionWithBomb() {
-  const head = snake.body[0];
-  for (const bomb of bombs) {
-    if (head.x === bomb.x && head.y === bomb.y) {
-      isGameOver = true;
-      gameOver.style.display = "block";
-      finalScore.textContent = scoreValue;
-      break;
-    }
-    
-  }
+  return isGameOver;
 }
 
 
