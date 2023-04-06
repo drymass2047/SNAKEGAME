@@ -56,11 +56,11 @@ let bomb = {
   y: 0,
 };
 function startGame() {
+  scoreValue = 0;
   gameSpeed = 100;
   reset();
   gameLoop();
 }
-
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
@@ -126,11 +126,11 @@ function getGameSpeed() {
     return 50; // 2x speed
   } else if (scoreValue >= 100) {
     return 66; // 1.5x speed
-  } else {
+  } else if (scoreValue >= 0) {
     return 100; // normal speed
   }
-    return gameSpeed;
 }
+
 
 function drawSpeed() {
   ctx.font = "16px Arial";
