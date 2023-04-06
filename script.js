@@ -22,7 +22,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
-
+let isFirstIteration = true;
 let isGameOver = false;
 let scoreValue = 0;
 let gameSpeed = 100;
@@ -383,11 +383,12 @@ function gameLoop() {
   // Update the game duration
   gameDuration = new Date().getTime() - startTime;
 
-  // Add this line to call the gameLoop function again
-  currentGameLoop = requestAnimationFrame(() => {
+   if (isFirstIteration) {
+    setTimeout(gameLoop, 100); // Use a fixed speed for the first iteration
+    isFirstIteration = false;
+  } else {
     setTimeout(gameLoop, getGameSpeed());
-  });
-}
+  }
 }
 
 function saveScore(score) {
