@@ -79,6 +79,12 @@ button:hover {
   overflow-y: auto; /* Add a scroll bar if the content is too long */
 }
 
+.container {
+  position: relative;
+  z-index: 1000;
+}
+
+
 /* Updated styles for the X button */
 #close-instructions-button {
   position: absolute;
