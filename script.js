@@ -71,6 +71,7 @@ function startGame() {
 }
 
 
+
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
@@ -132,7 +133,9 @@ function clearCanvas() {
 }
 
 function getGameSpeed() {
-  if (level === 3) {
+  if (gameDuration < 500) { // if the game duration is less than half a second
+    return 0; // set the speed to 0 (snake won't move during the delay)
+  } else if (level === 3) {
     return 50;
   } else if (level === 2) {
     return 100;
