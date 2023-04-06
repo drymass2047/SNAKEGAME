@@ -131,6 +131,14 @@ function getGameSpeed() {
   }
     return gameSpeed;
 }
+
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
+}
+
+
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -359,7 +367,7 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-
+  drawSpeed();
   snake.x = head.x;
   snake.y = head.y;
 
