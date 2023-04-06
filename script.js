@@ -32,6 +32,7 @@ foodImg.src = "apple.png";
 let funnyMode = false;
 let level = 1;
 let gameDuration = 0;
+let initialStart = true; // Add this line
 let startTime = new Date().getTime();
 let bombs = [];
 let bombImg = new Image();
@@ -59,7 +60,8 @@ function startGame() {
   reset();
   setTimeout(() => {
     gameLoop();
-  }, 500); // Add a 500ms delay before starting the game loop
+    initialStart = false; // Reset the initialStart flag after the first game loop
+  }, 500);
 }
 
 function showInstructions() {
@@ -123,15 +125,17 @@ function clearCanvas() {
 }
 
 function getGameSpeed() {
-  if (scoreValue >= 200) {
+  if (initialStart) {
+    return 1000; // Delay for the initial game start
+  } else if (scoreValue >= 200) {
     return 50; // 2x speed
   } else if (scoreValue >= 100) {
     return 66; // 1.5x speed
   } else {
     return 100; // normal speed
   }
-    return gameSpeed;
 }
+
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -251,6 +255,10 @@ function generateSafeBomb() {
   } while (Math.abs(bomb.x - snake.x) < snakeSize * 3 || Math.abs(bomb.y - snake.y) < snakeSize * 3);
 }
 function reset() {
+  if (currentGameLoop) {
+    cancelAnimationFrame(currentGameLoop);
+  }
+
   isGameOver = false;
   scoreValue = 0;
   snake = {
@@ -376,7 +384,10 @@ function gameLoop() {
   gameDuration = new Date().getTime() - startTime;
 
   // Add this line to call the gameLoop function again
-  setTimeout(gameLoop, getGameSpeed());
+  currentGameLoop = requestAnimationFrame(() => {
+    setTimeout(gameLoop, getGameSpeed());
+  });
+}
 }
 
 function saveScore(score) {
