@@ -56,16 +56,8 @@ let bomb = {
   y: 0,
 };
 function startGame() {
-  gameSpeed = getGameSpeed();
-  isGameOver = false;
-  startTime = new Date().getTime();
-  gameDuration = 0;
   scoreValue = 0;
-  level = 1;
-  snake = { x: 200, y: 200, dirX: 0, dirY: 0, body: [], maxBodySize: 5 };
-  generateFood();
-  generateBombs(getNumberOfBombs());
-  gameLoop();
+   gameLoop();
 }
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
