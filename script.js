@@ -67,8 +67,9 @@ function startGame() {
   playerName = playerName.trim();
   startMenu.style.display = "none";
   reset();
-  gameLoop();
+  setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
 }
+
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
@@ -387,15 +388,11 @@ function gameLoop() {
   gameDuration = new Date().getTime() - startTime;
   console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
-   if (isFirstIteration) {
-    setTimeout(gameLoop, 100); // Use a fixed speed for the first iteration
-    isFirstIteration = false;
-  } else {
-    setTimeout(gameLoop, getGameSpeed());
-  }
+  setTimeout(() => {
+    gameLoop();
+  }, getGameSpeed());
 }
 
-  
   
   
 function saveScore(score) {
