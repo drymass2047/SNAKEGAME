@@ -225,6 +225,7 @@ function handleInput(event) {
 }
 
 function checkGameOver() {
+  console.log("Checking game over...");
   const head = snake.body[0];
 
   if (funnyMode) {
@@ -251,6 +252,7 @@ function checkGameOver() {
   }
 
   if (isGameOver) {
+    console.log("Game over detected!");
     gameOver.style.display = "block";
     finalScore.textContent = scoreValue;
   }
