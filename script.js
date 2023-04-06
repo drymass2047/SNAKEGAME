@@ -460,9 +460,9 @@ function showLeaderboard() {
 
 
 // Add this event listener
-startButton.addEventListener("click", () => {
+startButton.addEventListener("click", function () {
   startMenu.style.display = "none";
-startGame();
+  startGame();
 });
 
 
