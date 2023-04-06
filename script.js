@@ -25,7 +25,7 @@ const database = firebase.database();
 
 let isGameOver = false;
 let scoreValue = 0;
-let gameSpeed = 200;
+let gameSpeed = 100;
 let currentGameLoop;
 let foodImg = new Image();
 foodImg.src = "apple.png";
@@ -56,11 +56,10 @@ let bomb = {
   y: 0,
 };
 function startGame() {
-  scoreValue = 0;
-  gameSpeed = 100;
   reset();
   gameLoop();
 }
+
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
   instructionsContainer.style.display = "block";
@@ -126,19 +125,11 @@ function getGameSpeed() {
     return 50; // 2x speed
   } else if (scoreValue >= 100) {
     return 66; // 1.5x speed
-  } else if (scoreValue >= 0) {
+  } else {
     return 100; // normal speed
   }
+    return gameSpeed;
 }
-
-
-function drawSpeed() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
-}
-
-
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -367,7 +358,7 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-  drawSpeed();
+
   snake.x = head.x;
   snake.y = head.y;
 
@@ -557,7 +548,8 @@ document.addEventListener("DOMContentLoaded", () => {
     startButton.addEventListener("click", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
-      startGame();
+      reset();
+      gameLoop();
     });
 
     // Other event listeners
@@ -578,5 +570,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: false });
   });
 });
-
-
