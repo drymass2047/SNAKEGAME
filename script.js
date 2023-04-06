@@ -446,10 +446,11 @@ function showLeaderboard() {
     snapshot.forEach((userSnapshot) => {
       userSnapshot.forEach((scoreSnapshot) => {
         const childData = scoreSnapshot.val();
+        const name = childData.name;
         const score = childData.score;
         const timestamp = childData.timestamp;
 
-        allScores.push({ score, timestamp });
+        allScores.push({ name, score, timestamp }); // Include name here
       });
     });
 
@@ -467,8 +468,7 @@ function showLeaderboard() {
         }
       }
 
-      const scoreObj = { score: scoreData.score, timestamp };
-      const scoreKey = `${scoreData.score}-${timestamp}`;
+      const scoreKey = `${scoreData.name}-${scoreData.score}-${timestamp}`;
 
       if (uniqueScores.find((entry) => entry === scoreKey)) {
         return;
@@ -476,13 +476,14 @@ function showLeaderboard() {
       uniqueScores.push(scoreKey);
 
       const li = document.createElement('li');
-      li.textContent = `${rank}. ${childData.name} - Score: ${scoreData.score} - Timestamp: ${timestamp}`;
+      li.textContent = `${rank}. ${scoreData.name} - Score: ${scoreData.score} - Timestamp: ${timestamp}`; // Use scoreData.name here
       leaderboardList.appendChild(li);
 
       rank++;
     });
   });
 }
+
 
 
 // Add this event listener
