@@ -399,13 +399,14 @@ function gameLoop() {
   }
 }
 
+  
+  
+  
 function saveScore(score) {
   if (score === undefined) {
     console.error('Error: score is undefined');
     return;
   }
-
-  const playerName = document.getElementById('player-name').value;
 
   if (!playerName) {
     console.error('Error: player name is empty');
