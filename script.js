@@ -141,6 +141,11 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
+}
 
 
 function drawFood() {
@@ -358,7 +363,7 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-
+  drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
 
