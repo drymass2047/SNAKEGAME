@@ -25,7 +25,7 @@ const database = firebase.database();
 
 let isGameOver = false;
 let scoreValue = 0;
-let gameSpeed = 100;
+let gameSpeed = 200;
 let currentGameLoop;
 let foodImg = new Image();
 foodImg.src = "apple.png";
@@ -56,6 +56,7 @@ let bomb = {
   y: 0,
 };
 function startGame() {
+  gameSpeed = 100;
   reset();
   gameLoop();
 }
