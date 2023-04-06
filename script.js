@@ -55,6 +55,10 @@ let bomb = {
   x: 0,
   y: 0,
 };
+function startGame() {
+  reset();
+  gameLoop();
+}
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
@@ -458,8 +462,7 @@ function showLeaderboard() {
 // Add this event listener
 startButton.addEventListener("click", () => {
   startMenu.style.display = "none";
-  reset();
-  gameLoop();
+startGame();
 });
 
 
@@ -559,8 +562,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     restartButton.addEventListener("click", () => {
       gameOver.style.display = "none";
-      reset();
-      gameLoop();
+       startGame();
     });
 
     window.addEventListener('touchmove', (event) => {
