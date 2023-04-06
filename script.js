@@ -1,4 +1,3 @@
-window.addEventListener('DOMContentLoaded', () => {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const snakeSize = 20;
@@ -132,17 +131,14 @@ function clearCanvas() {
 }
 
 function getGameSpeed() {
-  if (initialStart) {
-    return 1000; // Delay for the initial game start
-  } else if (scoreValue >= 200) {
-    return 50; // 2x speed
-  } else if (scoreValue >= 100) {
-    return 66; // 1.5x speed
+  if (level === 3) {
+    return 50;
+  } else if (level === 2) {
+    return 100;
   } else {
-    return 100; // normal speed
+    return 150;
   }
 }
-
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -596,13 +592,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
     restartButton.addEventListener("click", () => {
-      gameOver.style.display = "none";
-       startGame();
-    });
+  gameOver.style.display = "none";
+  startGame();
+  });
 
     window.addEventListener('touchmove', (event) => {
       event.preventDefault();
     }, { passive: false });
   });
 });
- });
+
