@@ -57,7 +57,7 @@ let bomb = {
 };
 function startGame() {
   reset();
-  gameLoop();
+  setTimeout(gameLoop, getGameSpeed());
 }
 
 function showInstructions() {
