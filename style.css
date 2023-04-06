@@ -13,6 +13,14 @@
   transition-duration: 0.4s;
 }
 
+button {
+  z-index: 100;
+}
+
+#start-button, #restart-button, #funny-mode-button, #show-instructions-button {
+  z-index: 101;
+}
+
 /* Add a hover effect to the button */
 #start-button:hover, #restart-button:hover {
   background-color: #45a049;
