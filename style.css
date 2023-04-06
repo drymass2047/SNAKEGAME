@@ -39,7 +39,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
-  height: 100vh;
+  min-height: 600px; /* set a minimum height for the body */
   margin: 0;
 }
 
