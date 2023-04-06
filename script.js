@@ -57,7 +57,9 @@ let bomb = {
 };
 function startGame() {
   scoreValue = 0;
-   gameLoop();
+  gameSpeed = 100;
+  reset();
+  gameLoop();
 }
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
