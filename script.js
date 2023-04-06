@@ -25,6 +25,7 @@ const database = firebase.database();
 
 let isGameOver = false;
 let scoreValue = 0;
+let gameSpeed = 100;
 let currentGameLoop;
 let foodImg = new Image();
 foodImg.src = "apple.png";
@@ -123,6 +124,7 @@ function getGameSpeed() {
   } else {
     return 100; // normal speed
   }
+    return gameSpeed;
 }
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
