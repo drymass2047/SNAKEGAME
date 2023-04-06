@@ -36,6 +36,7 @@ let initialStart = true; // Add this line
 let startTime = new Date().getTime();
 let bombs = [];
 let bombImg = new Image();
+let playerName;
 bombImg.src = "bomb.png";
 
 let snake = {
@@ -56,12 +57,17 @@ let bomb = {
   x: 0,
   y: 0,
 };
+
 function startGame() {
+  playerName = prompt("Enter your name:", "");
+  if (!playerName || playerName.trim() === "") {
+    alert("Please enter your name.");
+    return;
+  }
+  playerName = playerName.trim();
+  startMenu.style.display = "none";
   reset();
-  setTimeout(() => {
-    gameLoop();
-    initialStart = false; // Reset the initialStart flag after the first game loop
-  }, 500);
+  gameLoop();
 }
 
 function showInstructions() {
@@ -413,7 +419,7 @@ function saveScore(score) {
 
         // Otherwise, update the user's score on the leaderboard
         const timestamp = new Date().getTime();
-        const scoreObj = { score: score, timestamp: timestamp };
+        const scoreObj = { name: playerName, score: score, timestamp: timestamp }; // Include playerName here
         console.log('Score:', score);
         scoresRef.push(scoreObj).then(() => {
           showLeaderboard();
@@ -470,7 +476,7 @@ function showLeaderboard() {
       uniqueScores.push(scoreKey);
 
       const li = document.createElement('li');
-      li.textContent = `${rank}. Score: ${scoreData.score} - Timestamp: ${timestamp}`;
+      li.textContent = `${rank}. ${childData.name} - Score: ${scoreData.score} - Timestamp: ${timestamp}`;
       leaderboardList.appendChild(li);
 
       rank++;
