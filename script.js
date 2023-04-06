@@ -403,6 +403,13 @@ function saveScore(score) {
     console.error('Error: score is undefined');
     return;
   }
+
+  const playerName = document.getElementById('player-name').value;
+
+  if (!playerName) {
+    console.error('Error: player name is empty');
+    return;
+  }
   
   firebase.auth().signInAnonymously()
     .then((userCredential) => {
@@ -419,7 +426,7 @@ function saveScore(score) {
 
         // Otherwise, update the user's score on the leaderboard
         const timestamp = new Date().getTime();
-        const scoreObj = { name: playerName, score: score, timestamp: timestamp }; // Include playerName here
+        const scoreObj = { name: playerName, score: score, timestamp: timestamp }; // Include player's name here
         console.log('Score:', score);
         scoresRef.push(scoreObj).then(() => {
           showLeaderboard();
@@ -430,7 +437,6 @@ function saveScore(score) {
       console.error('Error signing in anonymously:', error);
     });
 }
-
 
 function showLeaderboard() {
   const leaderboardList = document.getElementById('leaderboard-list');
