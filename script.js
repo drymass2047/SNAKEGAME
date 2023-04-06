@@ -548,8 +548,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startButton.addEventListener("click", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
-      reset();
-      gameLoop();
+      startGame();
     });
 
     // Other event listeners
