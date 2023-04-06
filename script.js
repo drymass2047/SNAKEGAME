@@ -382,6 +382,7 @@ function gameLoop() {
 
   // Update the game duration
   gameDuration = new Date().getTime() - startTime;
+  console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
    if (isFirstIteration) {
     setTimeout(gameLoop, 100); // Use a fixed speed for the first iteration
