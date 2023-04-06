@@ -57,7 +57,9 @@ let bomb = {
 };
 function startGame() {
   reset();
-  setTimeout(gameLoop, getGameSpeed());
+  setTimeout(() => {
+    gameLoop();
+  }, 500); // Add a 500ms delay before starting the game loop
 }
 
 function showInstructions() {
