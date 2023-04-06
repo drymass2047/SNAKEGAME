@@ -59,16 +59,19 @@ let bomb = {
 };
 
 function startGame() {
-  playerName = prompt("Enter your name:", "");
-  if (!playerName || playerName.trim() === "") {
-    alert("Please enter your name.");
-    return;
+  if (!playerName) {
+    playerName = prompt("Enter your name:", "");
+    if (!playerName || playerName.trim() === "") {
+      alert("Please enter your name.");
+      return;
+    }
+    playerName = playerName.trim();
   }
-  playerName = playerName.trim();
   startMenu.style.display = "none";
   reset();
   setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
 }
+
 
 
 
