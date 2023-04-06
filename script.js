@@ -1,3 +1,4 @@
+window.addEventListener('DOMContentLoaded', () => {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const snakeSize = 20;
@@ -603,3 +604,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: false });
   });
 });
+ });
