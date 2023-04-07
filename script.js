@@ -74,6 +74,16 @@ function startGame() {
   gameLoop();
 }
 
+startButton.addEventListener("click", function () {
+  if (!playerName || playerName.trim() === "") {
+    alert("Please enter your name.");
+    return;
+  }
+  startMenu.style.display = "none";
+  startGame();
+});
+
+
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
