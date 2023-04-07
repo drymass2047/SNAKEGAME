@@ -68,21 +68,27 @@ function startGame() {
     playerName = playerName.trim();
   }
   
+  // Add event listener to update snake direction when arrow keys are pressed
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "ArrowUp" && snake.dirY !== 1) {
+      snake.dirX = 0;
+      snake.dirY = -1;
+    } else if (event.code === "ArrowDown" && snake.dirY !== -1) {
+      snake.dirX = 0;
+      snake.dirY = 1;
+    } else if (event.code === "ArrowLeft" && snake.dirX !== 1) {
+      snake.dirX = -1;
+      snake.dirY = 0;
+    } else if (event.code === "ArrowRight" && snake.dirX !== -1) {
+      snake.dirX = 1;
+      snake.dirY = 0;
+    }
+  });
+  
   startMenu.style.display = "none";
-  instructions.style.display = "none"; // Add this line to hide instructions
   reset();
-  gameLoop();
+  setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
 }
-
-startButton.addEventListener("click", function () {
-  if (!playerName || playerName.trim() === "") {
-    alert("Please enter your name.");
-    return;
-  }
-  startMenu.style.display = "none";
-  startGame();
-});
-
 
 
 function showInstructions() {
@@ -167,6 +173,12 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
+}
+
 
 function drawFood() {
   ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
@@ -183,10 +195,7 @@ function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
-  const speed = getGameSpeed();
-  ctx.fillText("Speed: " + speed, 8, 40);
 }
-
 
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
@@ -312,15 +321,14 @@ function getNumberOfBombs() {
   }
 }
 function drawLevelAndDuration() {
-  const duration = Math.floor(gameDuration / 1000);
-  const levelText = "Level: " + level;
-  const durationText = "Duration: " + duration + "s";
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e";
-  ctx.fillText(levelText, canvas.width - 100, 20);
-  ctx.fillText(durationText, canvas.width - 100, 40);
-}
+  const minutes = Math.floor(gameDuration / 60000);
+  const seconds = ((gameDuration % 60000) / 1000).toFixed(0);
+  const formattedTime = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
 
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Level: ${level} | Time: ${formattedTime}`, 10, 40);
+}
 
 // Updated gameLoop function
 function gameLoop() {
@@ -393,6 +401,7 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
+  drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
 
@@ -500,6 +509,15 @@ function showLeaderboard() {
   });
 }
 
+
+
+// Add this event listener
+startButton.addEventListener("click", function () {
+  startMenu.style.display = "none";
+  startGame();
+});
+
+
 function hideLeaderboard() {
   document.getElementById('leaderboard').style.display = 'none';
 }
@@ -594,11 +612,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('show-leaderboard').addEventListener('click', showLeaderboard);
     document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
-   restartButton.addEventListener("click", () => {
+    restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
-  reset();
-  gameLoop();
-});
+  startGame();
+  });
 
     window.addEventListener('touchmove', (event) => {
       event.preventDefault();
