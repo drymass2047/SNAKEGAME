@@ -71,8 +71,11 @@ function startGame() {
   }
   
   // rest of the function ...
-}
 
+  if (initialStart) {
+    initialStart = false;
+    return;
+  }
   
   // Add event listener to update snake direction when arrow keys are pressed
   document.addEventListener("keydown", (event) => {
@@ -94,7 +97,7 @@ function startGame() {
   startMenu.style.display = "none";
   reset();
   setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
-
+}
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
