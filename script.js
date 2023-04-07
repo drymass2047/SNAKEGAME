@@ -162,7 +162,6 @@ function getGameSpeed() {
     return 150;
   }
 }
-
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -174,6 +173,12 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
+}
+
 
 function drawFood() {
   ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
@@ -190,10 +195,7 @@ function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
-  const speed = getGameSpeed();
-  ctx.fillText("Speed: " + speed, 8, 40);
 }
-
 
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
@@ -319,13 +321,13 @@ function getNumberOfBombs() {
   }
 }
 function drawLevelAndDuration() {
-  const minutes = Math.floor(gameDuration / 60000);
-  const seconds = ((gameDuration % 60000) / 1000).toFixed(0);
-  const formattedTime = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
-
-  ctx.fillStyle = 'white';
-  ctx.font = '20px Arial';
-  ctx.fillText(`Level: ${level} | Time: ${formattedTime}`, 10, 40);
+  const duration = Math.floor(gameDuration / 1000);
+  const levelText = "Level: " + level;
+  const durationText = "Duration: " + duration + "s";
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e";
+  ctx.fillText(levelText, canvas.width - 100, 20);
+  ctx.fillText(durationText, canvas.width - 100, 40);
 }
 
 // Updated gameLoop function
