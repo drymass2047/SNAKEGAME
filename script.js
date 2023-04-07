@@ -187,18 +187,6 @@ function drawBomb() {
     ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
   }
 }
-function drawSpeed() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + gameSpeed, 8, 40);
-}
-
-function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Score: " + scoreValue, 8, 20);
-    drawSpeed(); // Display game speed
-}
 
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
@@ -323,15 +311,6 @@ function getNumberOfBombs() {
     return 1;
   }
 }
-function drawLevelAndDuration() {
-  const duration = Math.floor(gameDuration / 1000);
-  const levelText = "Level: " + level;
-  const durationText = "Duration: " + duration + "s";
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e";
-  ctx.fillText(levelText, canvas.width - 100, 20);
-  ctx.fillText(durationText, canvas.width - 100, 40);
-}
 
 // Updated gameLoop function
 function gameLoop() {
@@ -404,10 +383,8 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-  drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
-  drawLevelAndDuration();
 
   // Update the game duration
   gameDuration = new Date().getTime() - startTime;
