@@ -190,15 +190,15 @@ function drawBomb() {
 function drawSpeed() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 40); // include the actual text
+  ctx.fillText("Speed: " + gameSpeed, 8, 40);
 }
 
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
-  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20); // Display game speed
 }
+
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
 }
