@@ -332,13 +332,6 @@ function drawLevelAndDuration() {
 
 // Updated gameLoop function
 function gameLoop() {
-  // Call the checkGameOver function at the beginning of the gameLoop function
-  if (checkGameOver()) {
-    checkCollisionWithBomb(); // Replace handleCollisionWithBomb with checkCollisionWithBomb
-    saveScore(scoreValue);
-    return;
-  }
-
   if (isGameOver) {
     return;
   }
@@ -384,21 +377,28 @@ function gameLoop() {
     }
   }
 
-  function checkCollisionWithBomb() {
-  const head = snake.body[0];
+  drawSnake();
+  
+  // Call the checkGameOver function after drawing the snake
+  if (checkGameOver()) {
+    saveScore(scoreValue);
+    return;
+  }
 
-  for (const bomb of bombs) {
-    if (head.x === bomb.x && head.y === bomb.y) {
-      isGameOver = true;
-      break;
+  function checkCollisionWithBomb() {
+    const head = snake.body[0];
+
+    for (const bomb of bombs) {
+      if (head.x === bomb.x && head.y === bomb.y) {
+        isGameOver = true;
+        break;
+      }
     }
   }
-}
 
   // Check if the snake collided with the bomb
   checkCollisionWithBomb();
 
-  drawSnake();
   drawFood();
   drawBomb();
   drawSpeed(); 
@@ -416,6 +416,7 @@ function gameLoop() {
     gameLoop();
   }, getGameSpeed());
 }
+
 
   
   
