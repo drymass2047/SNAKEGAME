@@ -490,15 +490,6 @@ function showLeaderboard() {
   });
 }
 
-
-
-// Add this event listener
-startButton.addEventListener("click", function () {
-  startMenu.style.display = "none";
-  startGame();
-});
-
-
 function hideLeaderboard() {
   document.getElementById('leaderboard').style.display = 'none';
 }
@@ -593,10 +584,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('show-leaderboard').addEventListener('click', showLeaderboard);
     document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
-    restartButton.addEventListener("click", () => {
+   restartButton.addEventListener("click", () => {
   gameOver.style.display = "none";
-  startGame();
-  });
+  reset();
+  gameLoop();
+});
 
     window.addEventListener('touchmove', (event) => {
       event.preventDefault();
