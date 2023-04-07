@@ -74,31 +74,6 @@ function startGame() {
   gameLoop();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  Promise.all([
-    new Promise(resolve => foodImg.addEventListener('load', resolve)),
-    new Promise(resolve => bombImg.addEventListener('load', resolve))
-  ]).then(() => {
-    startButton.addEventListener("click", startGame);
-
-    // Other event listeners
-    document.addEventListener("keydown", handleInput);
-    canvas.addEventListener('touchstart', handleTouchStart, false);
-    canvas.addEventListener('touchmove', handleTouchMove, false);
-    canvas.addEventListener('touchend', handleTouchEnd, false);
-    document.getElementById('show-leaderboard').addEventListener('click', showLeaderboard);
-    document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
-
-    restartButton.addEventListener("click", () => {
-      gameOver.style.display = "none";
-      startGame();
-    });
-
-    window.addEventListener('touchmove', (event) => {
-      event.preventDefault();
-    }, { passive: false });
-  });
-});
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
