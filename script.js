@@ -68,8 +68,10 @@ function startGame() {
     playerName = playerName.trim();
   }
 
-  gameLoop(); // Call gameLoop() here
+  reset(); // Add this line to reset the game state before starting the game loop
+  gameLoop();
 }
+
   // Add event listener to update snake direction when arrow keys are pressed
   document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp" && snake.dirY !== 1) {
@@ -581,7 +583,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
       reset();
-      startGame(); // Call startGame() instead of gameLoop()
+      gameLoop(); // Call startGame() instead of gameLoop()
     });
 
     // Other event listeners
