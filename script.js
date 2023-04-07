@@ -112,6 +112,8 @@ function showInstructions() {
     const button = document.getElementById("show-instructions-button");
     const buttonRect = button.getBoundingClientRect();
     const instructionsRect = instructionsContainer.getBoundingClientRect();
+    
+    
     const newButtonTop = instructionsRect.bottom + 20; // Add 20 pixels of margin
     button.style.top = `${newButtonTop}px`;
   }
@@ -173,11 +175,7 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
-function drawSpeed() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
-}
+
 
 
 function drawFood() {
@@ -189,14 +187,18 @@ function drawBomb() {
     ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
   }
 }
-
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 40); // include the actual text
+}
 
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20); // Display game speed
 }
-
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
 }
