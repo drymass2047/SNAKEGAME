@@ -181,7 +181,6 @@ function drawSpeed() {
 }
 
 
-
 function drawFood() {
   ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
 }
