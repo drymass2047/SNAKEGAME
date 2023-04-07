@@ -174,10 +174,9 @@ function drawSnake() {
   }
 }
 function drawSpeed() {
-  const speed = getGameSpeed();
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + speed, canvas.width - 100, 20);
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
 }
 
 
@@ -623,4 +622,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: false });
   });
 });
-
