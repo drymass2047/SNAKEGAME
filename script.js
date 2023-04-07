@@ -321,7 +321,6 @@ function drawLevelAndDuration() {
   const duration = Math.floor(gameDuration / 1000);
   const levelText = "Level: " + level;
   const durationText = "Duration: " + duration + "s";
-  const speedText = "Speed: " + (Math.floor(1000 / (100 + 10 * (level - 1))) * 10) / 10;
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e";
   ctx.fillText(levelText, canvas.width - 100, 20);
