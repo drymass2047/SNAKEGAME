@@ -401,7 +401,6 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
-  drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
 
