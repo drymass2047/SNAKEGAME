@@ -173,13 +173,6 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
-function drawSpeed() {
-  const speed = getGameSpeed();
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e"; // Light green color for the text
-  ctx.fillText("Speed: " + speed, canvas.width - 100, 20);
-}
-
 
 function drawFood() {
   ctx.drawImage(foodImg, food.x, food.y, snakeSize, snakeSize);
