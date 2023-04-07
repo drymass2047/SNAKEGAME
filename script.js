@@ -59,6 +59,7 @@ let bomb = {
 };
 
 function startGame() {
+    console.log("playerName", playerName);
   if (!playerName) {
     playerName = prompt("Enter your name:", "");
     if (!playerName || playerName.trim() === "") {
@@ -332,6 +333,8 @@ function drawLevelAndDuration() {
 
 // Updated gameLoop function
 function gameLoop() {
+    console.log("isGameOver", isGameOver);
+
   if (isGameOver) {
     return;
   }
