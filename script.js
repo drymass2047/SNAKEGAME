@@ -326,7 +326,6 @@ function drawLevelAndDuration() {
   ctx.fillStyle = "#a0db8e";
   ctx.fillText(levelText, canvas.width - 100, 20);
   ctx.fillText(durationText, canvas.width - 100, 40);
-  ctx.fillText(speedText, canvas.width - 100, 60); // Add this line for speed display
 }
 
 
