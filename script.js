@@ -94,7 +94,6 @@ function startGame() {
   startMenu.style.display = "none";
   reset();
   setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
-}
 
 
 function showInstructions() {
