@@ -196,7 +196,10 @@ function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
+  const speed = getGameSpeed();
+  ctx.fillText("Speed: " + speed, 8, 40);
 }
+
 
 function generateRandomPosition() {
   return Math.floor(Math.random() * (canvas.width / snakeSize)) * snakeSize;
