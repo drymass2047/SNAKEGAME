@@ -59,7 +59,6 @@ let bomb = {
 };
 
 function startGame() {
-    console.log("playerName", playerName);
   if (!playerName) {
     playerName = prompt("Enter your name:", "");
     if (!playerName || playerName.trim() === "") {
@@ -67,7 +66,13 @@ function startGame() {
       return;
     }
     playerName = playerName.trim();
+  } else {
+    console.log("Welcome back, " + playerName + "!");
   }
+  
+  // rest of the function ...
+}
+
   
   // Add event listener to update snake direction when arrow keys are pressed
   document.addEventListener("keydown", (event) => {
