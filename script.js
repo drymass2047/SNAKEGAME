@@ -67,11 +67,7 @@ function startGame() {
     }
     playerName = playerName.trim();
   }
-
-  reset(); // Add this line to reset the game state before starting the game loop
-  gameLoop();
-}
-
+  
   // Add event listener to update snake direction when arrow keys are pressed
   document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp" && snake.dirY !== 1) {
@@ -92,7 +88,7 @@ function startGame() {
   startMenu.style.display = "none";
   reset();
   setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
-
+}
 
 
 function showInstructions() {
@@ -116,8 +112,6 @@ function showInstructions() {
     const button = document.getElementById("show-instructions-button");
     const buttonRect = button.getBoundingClientRect();
     const instructionsRect = instructionsContainer.getBoundingClientRect();
-    
-    
     const newButtonTop = instructionsRect.bottom + 20; // Add 20 pixels of margin
     button.style.top = `${newButtonTop}px`;
   }
@@ -179,7 +173,11 @@ function drawSnake() {
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
   }
 }
-
+function drawSpeed() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Speed: " + gameSpeed, canvas.width - 100, 20);
+}
 
 
 function drawFood() {
@@ -190,6 +188,13 @@ function drawBomb() {
   for (const bomb of bombs) {
     ctx.drawImage(bombImg, bomb.x, bomb.y, snakeSize, snakeSize);
   }
+}
+
+
+function drawScore() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#a0db8e"; // Light green color for the text
+  ctx.fillText("Score: " + scoreValue, 8, 20);
 }
 
 function generateRandomPosition() {
@@ -315,6 +320,15 @@ function getNumberOfBombs() {
     return 1;
   }
 }
+function drawLevelAndDuration() {
+  const minutes = Math.floor(gameDuration / 60000);
+  const seconds = ((gameDuration % 60000) / 1000).toFixed(0);
+  const formattedTime = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
+
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Level: ${level} | Time: ${formattedTime}`, 10, 40);
+}
 
 // Updated gameLoop function
 function gameLoop() {
@@ -387,8 +401,12 @@ function gameLoop() {
   drawSnake();
   drawFood();
   drawBomb();
+  drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
+
+  drawScore();
+  drawLevelAndDuration();
 
   // Update the game duration
   gameDuration = new Date().getTime() - startTime;
@@ -583,7 +601,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
       reset();
-      gameLoop(); // Call startGame() instead of gameLoop()
+      gameLoop();
     });
 
     // Other event listeners
@@ -595,13 +613,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
     restartButton.addEventListener("click", () => {
-      gameOver.style.display = "none";
-      startGame();
-    });
+  gameOver.style.display = "none";
+  startGame();
+  });
 
     window.addEventListener('touchmove', (event) => {
       event.preventDefault();
     }, { passive: false });
   });
 });
-
