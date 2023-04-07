@@ -67,7 +67,9 @@ function startGame() {
     }
     playerName = playerName.trim();
   }
-  
+
+  gameLoop(); // Call gameLoop() here
+}
   // Add event listener to update snake direction when arrow keys are pressed
   document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp" && snake.dirY !== 1) {
@@ -579,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
       reset();
-      gameLoop();
+      startGame(); // Call startGame() instead of gameLoop()
     });
 
     // Other event listeners
@@ -591,12 +593,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('leaderboard-close').addEventListener('click', hideLeaderboard);
 
     restartButton.addEventListener("click", () => {
-  gameOver.style.display = "none";
-  startGame();
-  });
+      gameOver.style.display = "none";
+      startGame();
+    });
 
     window.addEventListener('touchmove', (event) => {
       event.preventDefault();
     }, { passive: false });
   });
 });
+
