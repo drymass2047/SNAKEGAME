@@ -197,6 +197,7 @@ function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#a0db8e"; // Light green color for the text
   ctx.fillText("Score: " + scoreValue, 8, 20);
+    drawSpeed(); // Display game speed
 }
 
 function generateRandomPosition() {
@@ -406,8 +407,6 @@ function gameLoop() {
   drawSpeed(); 
   snake.x = head.x;
   snake.y = head.y;
-
-  drawScore();
   drawLevelAndDuration();
 
   // Update the game duration
