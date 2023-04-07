@@ -321,13 +321,13 @@ function getNumberOfBombs() {
   }
 }
 function drawLevelAndDuration() {
-  const duration = Math.floor(gameDuration / 1000);
-  const levelText = "Level: " + level;
-  const durationText = "Duration: " + duration + "s";
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "#a0db8e";
-  ctx.fillText(levelText, canvas.width - 100, 20);
-  ctx.fillText(durationText, canvas.width - 100, 40);
+  const minutes = Math.floor(gameDuration / 60000);
+  const seconds = ((gameDuration % 60000) / 1000).toFixed(0);
+  const formattedTime = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
+
+  ctx.fillStyle = 'white';
+  ctx.font = '20px Arial';
+  ctx.fillText(`Level: ${level} | Time: ${formattedTime}`, 10, 40);
 }
 
 // Updated gameLoop function
