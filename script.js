@@ -88,8 +88,10 @@ function startGame() {
   });
   
   startMenu.style.display = "none";
-  reset();
-  setTimeout(gameLoop, 500); // Delay for half a second before starting the game loop
+  setTimeout(() => {
+    reset(); // Reset the game state
+    gameLoop(); // Start the game loop
+  }, 500); // Delay for half a second before starting the game loop
 }
 
 
@@ -513,14 +515,6 @@ function showLeaderboard() {
     });
   });
 }
-
-
-
-// Add this event listener
-startButton.addEventListener("click", function () {
-  startMenu.style.display = "none";
-  startGame();
-});
 
 
 function hideLeaderboard() {
