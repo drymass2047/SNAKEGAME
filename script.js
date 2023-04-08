@@ -386,24 +386,22 @@ function gameLoop(firstRun = false) {
 
   drawSnake();
 
-  // Call the checkGameOver function after drawing the snake
-  if (checkGameOver()) {
-    if (!firstRun) {
-      saveScore(scoreValue);
-    }
-    return;
-  }
 
-  function checkCollisionWithBomb() {
-    const head = snake.body[0];
 
-    for (const bomb of bombs) {
-      if (head.x === bomb.x && head.y === bomb.y) {
-        isGameOver = true;
-        break;
-      }
+ function checkCollisionWithBomb() {
+  const head = snake.body[0];
+
+  for (const bomb of bombs) {
+    if (head.x === bomb.x && head.y === bomb.y) {
+      isGameOver = true;
+      console.log("Game over detected!");
+      gameOver.style.display = "block";
+      finalScore.textContent = scoreValue;
+      restartButton.style.display = "block";
+      break;
     }
   }
+}
 
   // Check if the snake collided with the bomb
   checkCollisionWithBomb();
