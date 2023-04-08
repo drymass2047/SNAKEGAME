@@ -344,7 +344,12 @@ function gameLoop(firstRun = false) {
   }
 
   clearCanvas();
-
+ if (snake.dirX === 0 && snake.dirY === 0) {
+    const directions = [{ x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }];
+    const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+    snake.dirX = randomDirection.x;
+    snake.dirY = randomDirection.y;
+  }
   // Move the snake
   const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
 
