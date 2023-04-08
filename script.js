@@ -286,32 +286,28 @@ function generateSafeBomb() {
   } while (Math.abs(bomb.x - snake.x) < snakeSize * 3 || Math.abs(bomb.y - snake.y) < snakeSize * 3);
 }
 function reset() {
-  if (currentGameLoop) {
-    cancelAnimationFrame(currentGameLoop);
-  }
-
+  // Reset the game state
   isGameOver = false;
-  scoreValue = 0;
   snake = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    dirX: 1,
+    x: Math.floor(canvas.width / 2),
+    y: Math.floor(canvas.height / 2),
+    dirX: 0,
     dirY: 0,
-    body: [{ x: canvas.width / 2, y: canvas.height / 2 }],
+    body: [{ x: Math.floor(canvas.width / 2), y: Math.floor(canvas.height / 2) }],
     maxBodySize: 1,
   };
+  food = {};
+  bombs = [];
+  startTime = new Date().getTime();
+  gameDuration = 0;
+  level = 1;
+  scoreValue = 0;
+  bombTimer = 0;
+
   generateFood();
   generateBombs(getNumberOfBombs());
-  startTime = new Date().getTime(); // Add this line to reset the start time when the game restarts
+}
 
-}
-function generateBombs(numberOfBombs) {
-  bombs = [];
-  for (let i = 0; i < numberOfBombs; i++) {
-    generateSafeBomb();
-    bombs.push({ x: bomb.x, y: bomb.y });
-  }
-}
 
 
 function getNumberOfBombs() {
@@ -600,8 +596,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startButton.addEventListener("click", () => {
       startMenu.style.display = "none";
       instructions.style.display = "none"; // Add this line to hide instructions
-      reset();
-      gameLoop();
+      startGame();
     });
 
     // Other event listeners
