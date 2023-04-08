@@ -308,7 +308,13 @@ function reset() {
   generateBombs(getNumberOfBombs());
 }
 
-
+function generateBombs(numberOfBombs) {
+  bombs = [];
+  for (let i = 0; i < numberOfBombs; i++) {
+    generateSafeBomb();
+    bombs.push({ x: bomb.x, y: bomb.y });
+  }
+}
 
 function getNumberOfBombs() {
   if (scoreValue >= 200) {
