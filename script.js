@@ -88,12 +88,11 @@ function startGame() {
   });
   
   startMenu.style.display = "none";
+  reset();
   setTimeout(() => {
-    reset(); // Reset the game state
-    gameLoop(); // Start the game loop
+    gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
   }, 500); // Delay for half a second before starting the game loop
 }
-
 
 function showInstructions() {
   const instructionsContainer = document.getElementById("instructions");
@@ -335,10 +334,10 @@ function drawLevelAndDuration() {
 }
 
 // Updated gameLoop function
-function gameLoop() {
-    console.log("isGameOver", isGameOver);
+function gameLoop(firstRun = false) {
+  console.log("isGameOver", isGameOver);
 
-  if (isGameOver) {
+  if (isGameOver && !firstRun) {
     return;
   }
 
@@ -384,10 +383,12 @@ function gameLoop() {
   }
 
   drawSnake();
-  
+
   // Call the checkGameOver function after drawing the snake
   if (checkGameOver()) {
-    saveScore(scoreValue);
+    if (!firstRun) {
+      saveScore(scoreValue);
+    }
     return;
   }
 
