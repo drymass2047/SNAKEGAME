@@ -406,6 +406,13 @@ function gameLoop(firstRun = false) {
   // Check if the snake collided with the bomb
   checkCollisionWithBomb();
 
+  if (checkGameOver()) {
+  if (!firstRun) {
+    saveScore(scoreValue);
+  }
+  return;
+}
+  
   drawFood();
   drawBomb();
   drawSpeed(); 
