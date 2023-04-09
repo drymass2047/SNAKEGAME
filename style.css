@@ -151,8 +151,10 @@ button:hover {
     width: 90vw;
  }
 
-  body {
-    background-size: contain;
-    background-position: top;
+    body {
+    background-image: url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }
