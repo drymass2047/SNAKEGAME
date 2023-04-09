@@ -37,6 +37,9 @@ button {
   font-size: 24px !important;
 }
 
+#leaderboard, #leaderboard h2, #leaderboard li {
+  color: white;}
+  
 body {
   display: flex;
   flex-direction: column;
