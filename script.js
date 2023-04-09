@@ -644,8 +644,6 @@ document.addEventListener("DOMContentLoaded", () => {
   startGame();
   });
 
-    window.addEventListener('touchmove', (event) => {
-      event.preventDefault();
-    }, { passive: false });
+
   });
 });
