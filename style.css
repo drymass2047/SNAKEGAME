@@ -151,6 +151,10 @@ button:hover {
     width: 90vw;
  }
 
+  .game-subtitle {
+    top: 40%;
+  }
+  
   body {
     background-image: url("bg.jpg");
     background-repeat: no-repeat;
