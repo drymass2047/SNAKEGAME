@@ -151,10 +151,10 @@ button:hover {
     width: 90vw;
  }
 
-    body {
+  body {
     background-image: url("bg.jpg");
-    background-size: cover;
-    background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
   }
 }
