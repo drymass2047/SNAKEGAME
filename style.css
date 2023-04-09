@@ -130,6 +130,27 @@ button:hover {
 }
 
 @media only screen and (max-width: 600px) {
+  
+  #canvas {
+  touch-action: auto;
+}
+
+#game-over {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  overflow: auto;
+}
+  
   /* Adjust the position and size of the start button */
   #start-menu {
     top: 50%;
@@ -148,9 +169,6 @@ button:hover {
     max-height: 90vw;
   }
   
-  #game-over {
-    width: 90vw;
- }
 
   .game-subtitle {
     top: 40%;
