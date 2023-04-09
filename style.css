@@ -132,8 +132,10 @@ button:hover {
 
 @media only screen and (max-width: 600px) {
   
-  #canvas {
-  touch-action: auto;
+ #canvas {
+  display: none;
+  max-width: 90vw;
+  max-height: 90vw;
 }
 
 #game-over {
