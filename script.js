@@ -273,10 +273,13 @@ function checkGameOver() {
   }
 
   if (isGameOver) {
-    console.log("Game over detected!");
-    gameOver.style.display = "block";
-    finalScore.textContent = scoreValue;
-  }
+  console.log("Game over detected!");
+  gameOver.style.display = "block";
+  finalScore.textContent = scoreValue;
+  startMenu.style.display = "flex";
+  funnyModeButton.style.display = "inline-block";
+  showInstructionsButton.style.display = "inline-block";
+}
   return isGameOver;
 }
 
