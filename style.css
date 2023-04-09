@@ -118,6 +118,7 @@ button:hover {
   
   /* Adjust the position of the canvas and the size of the game over box */
   #canvas {
+    display: none;
     max-width: 90vw;
     max-height: 90vw;
   }
