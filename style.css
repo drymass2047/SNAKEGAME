@@ -65,6 +65,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+ 
+}
 }
 
 h1 {
@@ -179,5 +181,9 @@ button:hover {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+    overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  user-zoom: zoom;
+  -ms-user-zoom: zoom;
   }
 }
