@@ -45,6 +45,10 @@ body {
   font-family: Arial, sans-serif;
   min-height: 600px; /* set a minimum height for the body */
   margin: 0;
+  background-image: url(bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 h1 {
@@ -130,3 +134,9 @@ button:hover {
   #game-over {
     width: 90vw;
  }
+
+  body {
+    background-size: contain;
+    background-position: top;
+  }
+}
