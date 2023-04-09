@@ -59,6 +59,7 @@ let bomb = {
 };
 
 function startGame() {
+  
   if (!playerName) {
     playerName = prompt("Enter your name:", "");
     if (!playerName || playerName.trim() === "") {
@@ -86,7 +87,8 @@ function startGame() {
       snake.dirY = 0;
     }
   });
-  
+  document.getElementById("canvas").style.display = "block";
+
   startMenu.style.display = "none";
   reset();
   setTimeout(() => {
