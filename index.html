@@ -15,42 +15,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snake Game</title>
-  </head>
-<body>
-<div class="container">
-  <div id="instructions">
-    <div class="instructions-header">
-      <h2>Instructions:</h2>
-      <button class="close-instructions" onclick="closeInstructions()">X</button>
-    </div>
-    <p>Use the arrow keys or swipe on the screen to control the snake. Eat the apples to grow and increase your score. Avoid colliding with the bombs and the walls, or it's game over! Don't eat your own tail. When your score reaches 100, the game speed will increase by 1.5 times, and an additional bomb will appear. When your score reaches 200, the game speed will double, and one more bomb will be added.</p>
-  </div>
-  <div id="start-menu">
-    <button id="start-button">Start Game</button>
-    <button id="funny-mode-button">Toggle Funny Mode</button>
-    <button id="show-instructions-button">Show Instructions</button>
-  </div>
-  
-  <canvas id="canvas" width="400" height="400" style="border: 1px solid #000;"></canvas>
-      
-  <div id="game-over" style="display: none;">
-    <h2 class="start-menu-text">Game Over!</h2>
-    <p class="start-menu-text">Your final score: <span id="final-score"></span></p>
-    <button id="restart-button">Restart Game</button>
-    
-  </div>  
-</div>
+ </head>
 
-<div id="leaderboard" style="display:none;">
-  <h2>Leaderboard</h2>
-  <ol id="leaderboard-list"></ol>
-  <button id="leaderboard-close">Close</button>
-</div>
-<button id="show-leaderboard">Show Leaderboard</button>
+<body>
+  <div class="container">
+    <div id="instructions">
+      <div class="instructions-header">
+        <h2>Instructions:</h2>
+        <button class="close-instructions" onclick="closeInstructions()">X</button>
+      </div>
+      <p>Use the arrow keys or swipe on the screen to control the snake. Eat the apples to grow and increase your score. Avoid colliding with the bombs and the walls, or it's game over! Don't eat your own tail. When your score reaches 100, the game speed will increase by 1.5 times, and an additional bomb will appear. When your score reaches 200, the game speed will double, and one more bomb will be added.</p>
+    </div>
+    <div id="start-menu">
+      <button id="start-button">Start Game</button>
+      <button id="funny-mode-button">Toggle Funny Mode</button>
+      <button id="show-instructions-button">Show Instructions</button>
+    </div>
+
+    <canvas id="canvas" width="400" height="400" style="border: 1px solid #000;"></canvas>
+
+    <div id="game-over" style="display: none;">
+      <h2 class="start-menu-text">Game Over!</h2>
+      <p class="start-menu-text">Your final score: <span id="final-score"></span></p>
+      <button id="restart-button">Restart Game</button>
+
+    </div>
+  </div>
+
+  <div id="leaderboard" style="display:none;">
+    <h2>Leaderboard</h2>
+    <ol id="leaderboard-list"></ol>
+    <button id="leaderboard-close">Close</button>
+  </div>
+  <button id="show-leaderboard">Show Leaderboard</button>
 
   <script src="script.js"></script>
   <script>
     // JavaScript code that accesses the final-score element
     const finalScoreElement = document.getElementById("final-score");
     console.log(finalScoreElement.innerHTML);
-</script>
+  </script>
+</body>
+
+</html>
