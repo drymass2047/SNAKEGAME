@@ -104,6 +104,10 @@ button:hover {
   z-index: 10000; /* Make sure the X button is always on top of everything */
 }
 
+#canvas {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   /* Adjust the position and size of the start button */
   #start-menu {
