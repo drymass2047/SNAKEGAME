@@ -1,5 +1,6 @@
 /* Update the background color of the button */
-#start-button, #restart-button {
+#start-button,
+#restart-button {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -17,21 +18,24 @@ button {
   z-index: 100;
 }
 
-#start-button, #restart-button, #funny-mode-button, #show-instructions-button {
+#start-button,
+#restart-button,
+#funny-mode-button,
+#show-instructions-button {
   z-index: 101;
 }
 
 /* Add a hover effect to the button */
-#start-button:hover, #restart-button:hover {
+#start-button:hover,
+#restart-button:hover {
   background-color: #45a049;
 }
 
 /* Update the color of the text on the start menu */
 .start-menu-text {
- color: #4CAF50 !important;
+  color: #4CAF50 !important;
   font-size: 24px !important;
 }
-
 
 body {
   display: flex;
@@ -63,6 +67,7 @@ button {
 button:hover {
   background-color: #45a049 !important;
 }
+
 /* Updated styles for the instructions box */
 #instructions {
   position: fixed;
@@ -89,9 +94,6 @@ button:hover {
   justify-content: center;
 }
 
-
-
-
 /* Updated styles for the X button */
 #close-instructions-button {
   position: absolute;
@@ -101,7 +103,6 @@ button:hover {
   cursor: pointer;
   z-index: 10000; /* Make sure the X button is always on top of everything */
 }
-
 
 @media only screen and (max-width: 600px) {
   /* Adjust the position and size of the start button */
@@ -114,6 +115,35 @@ button:hover {
     font-size: 16px;
     padding: 8px 16px;
   }
+  
+  /* Adjust the position of the canvas and the size of the game over box */
+  #canvas {
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+  
+  #game-over {
+    width: 90vw;
+    margin: 10px 0;
+  }
+  
+  /* Adjust the size of the instructions box */
+  #instructions {
+    max-width: 90%;
+    padding: 10px;
+  }
+  
+  /* Adjust the position of the leaderboard */
+  #leaderboard {
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+  }
+  
+  /* Adjust the position of the leaderboard items */
+  #leaderboard-list {
+    margin: 10px 0;
+    padding-inline-start: 20px;
+  }
 }
-
 
