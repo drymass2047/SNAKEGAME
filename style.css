@@ -1,39 +1,6 @@
-.container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#canvas-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-#canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  border: 1px solid #000;
-}
-
-#start-menu {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
+/* Update the background color of the button */
 #start-button,
-#funny-mode-button,
-#show-instructions-button {
+#restart-button {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -47,36 +14,114 @@
   transition-duration: 0.4s;
 }
 
+button {
+  z-index: 100;
+}
+
+#start-button,
+#restart-button,
+#funny-mode-button,
+#show-instructions-button {
+  z-index: 101;
+}
+
+/* Add a hover effect to the button */
 #start-button:hover,
-#funny-mode-button:hover,
-#show-instructions-button:hover {
+#restart-button:hover {
   background-color: #45a049;
 }
 
-#funny-mode-button {
-  margin-left: 10px;
+/* Update the color of the text on the start menu */
+.start-menu-text {
+  color: #4CAF50 !important;
+  font-size: 24px !important;
 }
 
-#show-instructions-button {
-  margin-left: 10px;
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  min-height: 600px; /* set a minimum height for the body */
+  margin: 0;
+}
+
+h1 {
+  color: #4CAF50;
+}
+
+button {
+  background-color: #4CAF50 !important;
+  border: none !important;
+  color: white !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  cursor: pointer !important;
+  padding: 12px 24px !important;
+}
+
+button:hover {
+  background-color: #45a049 !important;
+}
+
+/* Updated styles for the instructions box */
+#instructions {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid black;
+  z-index: 9999; /* Make sure the instructions box is always on top */
+  text-align: left;
+  display: none;
+  max-width: 80%; /* Make sure the box is not wider than the screen */
+  overflow-y: auto; /* Add a scroll bar if the content is too long */
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Updated styles for the X button */
+#close-instructions-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 1.5em;
+  cursor: pointer;
+  z-index: 10000; /* Make sure the X button is always on top of everything */
 }
 
 @media only screen and (max-width: 600px) {
   /* Adjust the position and size of the start button */
   #start-menu {
-    top: 90%;
-    transform: translate(-50%, -100%);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
   }
   #start-button {
     font-size: 16px;
-    padding: 6px 12px;
+    padding: 8px 16px;
   }
-  /* Adjust the position of the other buttons */
-  #funny-mode-button,
-  #show-instructions-button {
-    font-size: 12px;
-    padding: 4px 8px;
-    margin-top: 10px;
-    margin-left: 0;
+  
+  /* Adjust the position of the canvas and the size of the game over box */
+  #canvas {
+    max-width: 90vw;
+    max-height: 90vw;
   }
-}
+  
+  #game-over {
+    width: 90vw;
+ }
