@@ -562,6 +562,12 @@ function handleTouchMove(e) {
     // Game is not playing, allow zooming
     return;
   }
+
+  if (e.touches.length === 2) {
+    // Two fingers are touching the screen, allow zooming
+    return;
+  }
+
   e.preventDefault();
   // Prevent scrolling of the webpage
 }
