@@ -553,17 +553,20 @@ let touchStartY = 0;
 
 
 function handleTouchStart(e) {
-  e.preventDefault();
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }
 
 function handleTouchMove(e) {
+  if (gameOver.style.display !== 'none' || startMenu.style.display !== 'none') {
+    // Game is not playing, allow zooming
+    return;
+  }
   e.preventDefault();
+  // Prevent scrolling of the webpage
 }
 
 function handleTouchEnd(e) {
-  e.preventDefault();
   const touchEndX = e.changedTouches[0].clientX;
   const touchEndY = e.changedTouches[0].clientY;
   const deltaX = touchEndX - touchStartX;
