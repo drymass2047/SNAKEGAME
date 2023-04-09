@@ -72,6 +72,7 @@ function startGame() {
   }
   
   // Add event listener to update snake direction when arrow keys are pressed
+  
   document.addEventListener("keydown", (event) => {
     if (event.code === "ArrowUp" && snake.dirY !== 1) {
       snake.dirX = 0;
@@ -90,6 +91,7 @@ function startGame() {
   document.getElementById("canvas").style.display = "block";
 
   startMenu.style.display = "none";
+  gameOver.style.display = "none";
   reset();
   setTimeout(() => {
     gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
