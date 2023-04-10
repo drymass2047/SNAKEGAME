@@ -422,6 +422,7 @@ function gameLoop(firstRun = false) {
   if (!firstRun) {
     saveScore(scoreValue);
   }
+  showLeaderboard();
   return;
 }
   
