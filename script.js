@@ -94,7 +94,7 @@ function startGame() {
   gameOver.style.display = "none";
   reset();
   setTimeout(() => {
-   gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
+    gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
   }, 500); // Delay for half a second before starting the game loop
 }
 
@@ -169,20 +169,12 @@ function getGameSpeed() {
     return 150;
   }
 }
-
-function animationLoop() {
-  gameLoop(false);
-}
-
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
- for (let i = 0; i < snake.body.length; i++) {
+  for (let i = 0; i < snake.body.length; i++) {
     const segment = snake.body[i];
-
-    // Increment the position of the snake segment
-    
-const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
+    const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
 
     ctx.fillStyle = gradientColors[colorIndex];
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
@@ -366,7 +358,7 @@ function gameLoop(firstRun = false) {
     snake.dirY = randomDirection.y;
   }
   // Move the snake
-    const head = { x: snake.x + snake.dirX * moveDistance, y: snake.y + snake.dirY * moveDistance };
+  const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
 
   // Update the snake's position based on the funnyMode
   if (funnyMode) {
@@ -447,13 +439,9 @@ function gameLoop(firstRun = false) {
   gameDuration = new Date().getTime() - startTime;
   console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
-   // Replace setTimeout with requestAnimationFrame
-requestAnimationFrame(animationLoop);
-
-  
-  //setTimeout(() => {
-   // gameLoop();
- // }, getGameSpeed());
+  setTimeout(() => {
+    gameLoop();
+  }, getGameSpeed());
 }
 
 
