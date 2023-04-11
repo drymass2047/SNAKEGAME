@@ -94,7 +94,7 @@ function startGame() {
   gameOver.style.display = "none";
   reset();
   setTimeout(() => {
-    gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
+    requestAnimationFrame; // Call gameLoop() with the firstRun parameter set to true
   }, 500); // Delay for half a second before starting the game loop
 }
 
