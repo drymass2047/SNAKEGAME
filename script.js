@@ -94,7 +94,7 @@ function startGame() {
   gameOver.style.display = "none";
   reset();
   setTimeout(() => {
-   requestAnimationFrame(animationLoop); // Call gameLoop() with the firstRun parameter set to true
+   gameLoop(true); // Call gameLoop() with the firstRun parameter set to true
   }, 500); // Delay for half a second before starting the game loop
 }
 
@@ -187,6 +187,7 @@ function drawSnake() {
     if (snake.dirY !== 0) {
       segment.y += snake.dirY * moveDistance;
     }
+const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
 
     ctx.fillStyle = gradientColors[colorIndex];
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
