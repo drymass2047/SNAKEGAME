@@ -447,7 +447,8 @@ function gameLoop(firstRun = false) {
   console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
    // Replace setTimeout with requestAnimationFrame
-  requestAnimationFrame(() => gameLoop());
+  requestAnimationFrame(gameLoop);
+
   
   //setTimeout(() => {
    // gameLoop();
