@@ -181,12 +181,7 @@ function drawSnake() {
     const segment = snake.body[i];
 
     // Increment the position of the snake segment
-    if (snake.dirX !== 0) {
-      segment.x += snake.dirX * moveDistance;
-    }
-    if (snake.dirY !== 0) {
-      segment.y += snake.dirY * moveDistance;
-    }
+    
 const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
 
     ctx.fillStyle = gradientColors[colorIndex];
@@ -371,7 +366,7 @@ function gameLoop(firstRun = false) {
     snake.dirY = randomDirection.y;
   }
   // Move the snake
-  const head = { x: snake.x + snake.dirX * snakeSize, y: snake.y + snake.dirY * snakeSize };
+    const head = { x: snake.x + snake.dirX * moveDistance, y: snake.y + snake.dirY * moveDistance };
 
   // Update the snake's position based on the funnyMode
   if (funnyMode) {
