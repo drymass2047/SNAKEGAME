@@ -172,9 +172,16 @@ function getGameSpeed() {
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
-  for (let i = 0; i < snake.body.length; i++) {
+ for (let i = 0; i < snake.body.length; i++) {
     const segment = snake.body[i];
-    const colorIndex = Math.floor(i / (snake.body.length / gradientColors.length));
+
+    // Increment the position of the snake segment
+    if (snake.dirX !== 0) {
+      segment.x += snake.dirX * moveDistance;
+    }
+    if (snake.dirY !== 0) {
+      segment.y += snake.dirY * moveDistance;
+    }
 
     ctx.fillStyle = gradientColors[colorIndex];
     ctx.fillRect(segment.x, segment.y, snakeSize, snakeSize);
@@ -439,9 +446,12 @@ function gameLoop(firstRun = false) {
   gameDuration = new Date().getTime() - startTime;
   console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
-  setTimeout(() => {
-    gameLoop();
-  }, getGameSpeed());
+   // Replace setTimeout with requestAnimationFrame
+  requestAnimationFrame(() => gameLoop());
+  
+  //setTimeout(() => {
+   // gameLoop();
+ // }, getGameSpeed());
 }
 
 
