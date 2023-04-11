@@ -94,7 +94,7 @@ function startGame() {
   gameOver.style.display = "none";
   reset();
   setTimeout(() => {
-   requestAnimationFrame(gameLoop); // Call gameLoop() with the firstRun parameter set to true
+   requestAnimationFrame(animationLoop); // Call gameLoop() with the firstRun parameter set to true
   }, 500); // Delay for half a second before starting the game loop
 }
 
@@ -169,6 +169,11 @@ function getGameSpeed() {
     return 150;
   }
 }
+
+function animationLoop() {
+  gameLoop(false);
+}
+
 function drawSnake() {
   const gradientColors = ['#76b852', '#4CAF50', '#388E3C', '#2E7D32', '#1B5E20'];
 
@@ -447,7 +452,7 @@ function gameLoop(firstRun = false) {
   console.log(`Current game speed: ${getGameSpeed()}`); // Log the current game speed
 
    // Replace setTimeout with requestAnimationFrame
-  requestAnimationFrame(gameLoop);
+requestAnimationFrame(animationLoop);
 
   
   //setTimeout(() => {
